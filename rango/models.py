@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     Name_MAX_LENGTH = 128
@@ -33,3 +34,15 @@ class Page(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class UserProfile(models.Model):
+    # Link to map UserProfile to a user model instance.
+    user = models.OneToOneField(User, on_delete=CASCADE)
+
+    # Additional attributes to be included
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    def __str__(self):
+        return self.user.username
