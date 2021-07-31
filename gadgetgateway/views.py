@@ -1,13 +1,17 @@
 from django.http.response import HttpResponse
-from rango.forms import CategoryForm, PageForm# , UserForm, UserProfileForm
 from django.shortcuts import redirect, render
-from rango.models import Category, Page
-from rango.forms import CategoryForm, PageForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
+from gadgetgateway.forms import CategoryForm, ProductForm , UserForm, UserProfileForm
+from gadgetgateway.models import Category, Product
+
 from datetime import datetime
 
+app_name = 'gadgetgateway'
+
+# Create your views here.
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
@@ -20,7 +24,7 @@ def index(request):
     # Call the helper function to handle the cookies
     visitor_cookie_handler(request)
     # Obtain our Response object early so we can add cookie information.
-    response = render(request, 'rango/index.html', context=context_dict)
+    response = render(request, app_name + '/index.html', context=context_dict)
 
     # Return response back to the user, updating any cookies that need changed.
     return response
@@ -28,7 +32,7 @@ def index(request):
 
 def about(request):
     context_dict = {'visits': request.session['visits']}
-    return render(request, 'rango/about.html', context=context_dict)
+    return render(request, app_name + '/about.html', context=context_dict)
 
 
 def show_category(request, category_name_slug):
@@ -48,63 +52,40 @@ def show_category(request, category_name_slug):
         print("TEST COOKIE WORKED!")
         request.session.delete_test_cookie()
 
-    return render(request, 'rango/category.html', context=context_dict)
-
-
-@login_required
-def add_category(request):
-    form = CategoryForm()
-
-    if request.method == 'POST':
-        form = CategoryForm(request.POST)
-
-        # Have we been provided with a valid form?
-        if form.is_valid():
-            # Save the new category in the DB
-            form.save(commit=True)
-
-            # After saving the new category, redirect the user back to index view.
-            return redirect('/rango/')
-
-        else:
-            print(form.errors)
-
-    return render(request, 'rango/add_category.html', {'form': form})
-
+    return render(request, app_name + '/category.html', context=context_dict)
 
 @login_required
-def add_page(request, category_name_slug):
+def add_product(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
     except Category.DoesNotExist:
         category = None
 
     if category is None:
-        return redirect('/rango/')
+        return redirect('/gadget-gateway/')
 
-    form = PageForm()
+    form = ProductForm()
 
     if request.method == 'POST':
-        form = PageForm(request.POST)
+        form = ProductForm(request.POST)
 
         if form.is_valid():
             if category:
                 page = form.save(commit=False)
                 page.category = category
-                page.views = 0
                 page.save()
-
-                return redirect(reverse('rango:show_category', kwargs={'category_name_slug': category_name_slug}))
+                return redirect(reverse(app_name + ':show_category', kwargs={'category_name_slug': category_name_slug}))
 
         else:
             print(form.errors)
 
     context_dict = {'form': form, 'category': category}
-    return render(request, 'rango/add_page.html', context=context_dict)
+    return render(request, app_name + '/add_product.html', context=context_dict)
 
+
+# Login System
 
 def register(request):
-
     # Boolean to tell the template if the registration was successful
     registered = False
 
@@ -152,12 +133,11 @@ def register(request):
         profile_form = UserProfileForm()
 
     # Render template depending on the context
-    return render(request, 'rango/register.html', 
+    return render(request, app_name + '/register.html', 
     context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
 
 def user_login(request):
-
     # If the request is POST, get relevant information
     if request.method == 'POST':
         # Gather username and password provided by the user.
@@ -175,7 +155,7 @@ def user_login(request):
             if user.is_active:
                 # If the user is valid and active, allow login
                 login(request, user)
-                return redirect(reverse('rango:index'))
+                return redirect(reverse(app_name + ':index'))
 
             else:
                 return HttpResponse("Your rango account is disabled.")
@@ -186,13 +166,12 @@ def user_login(request):
 
     # If the form is not post, display the login form
     else:
-        return render(request, 'rango/login.html')
+        return render(request, app_name + '/login.html')
 
 
 @login_required
 def restricted(request):
-    return render(request, 'rango/restricted.html')
-
+    return render(request, app_name + '/restricted.html')
 
 # Use the login_required() decorator to ensure only those logged in can
 # access the view.
@@ -201,8 +180,10 @@ def user_logout(request):
     # Logout the last logged in user
     logout(request)
     # Redirect to homepage
-    return redirect(reverse('rango:index'))
+    return redirect(reverse(app_name + ':index'))
 
+
+# Visitor count
 
 # Helper method
 def get_server_side_cookie(request, cookie, default_val=None):
@@ -210,7 +191,6 @@ def get_server_side_cookie(request, cookie, default_val=None):
     if not val:
         val = default_val
     return val
-
 
 # Updated the function definition
 def visitor_cookie_handler(request):
