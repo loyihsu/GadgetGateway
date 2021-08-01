@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from gadgetgateway.forms import CategoryForm, ProductForm , UserForm, UserProfileForm
+from gadgetgateway.forms import ProductForm , UserForm, UserProfileForm
 from gadgetgateway.models import Category, Product
 
 from datetime import datetime
@@ -13,16 +13,14 @@ app_name = 'gadgetgateway'
 
 # Create your views here.
 def index(request):
-    # category_list = Category.objects
-    # page_list = Product.objects.order_by('-likes')[:5]
+    most_liked = Product.objects.order_by('-likes')[:5]
+    most_disliked = Product.objects.order_by('-dislikes')[:5]
 
-    context_dict = {}
-    context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
-    # context_dict['categories'] = category_list
-    # context_dict['pages'] = page_list
+    context_dict = {'most_liked': most_liked, 'most_disliked': most_disliked}
 
     # Call the helper function to handle the cookies
     visitor_cookie_handler(request)
+
     # Obtain our Response object early so we can add cookie information.
     response = render(request, app_name + '/index.html', context=context_dict)
 
