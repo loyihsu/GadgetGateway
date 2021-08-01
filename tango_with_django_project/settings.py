@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rango',              # Decomissioned: Migrated to the new GadgetGateway app.
-    'gadgetgateway',
+    'rango',
+    'gadgetgateway',     # Migration tool
 ]
 
 MIDDLEWARE = [
