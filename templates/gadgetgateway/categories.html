@@ -1,15 +1,7 @@
 {% if categories %}
     {% for c in categories %}
-        {% if c == current_category %}
-        <li>
-        <strong>
-            <a href="{% url 'gadgetgateway:show_category' c.slug %}">{{c.name}}</a>
-        </strong>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'gadgetgateway:show_category' c.slug %}">{{c.name}}</a>
         </li>
-        {% else %}
-        <li>
-            <a href="{% url 'gadgetgateway:show_category' c.slug %}">{{c.name}}</a>
-        </li>
-        {% endif %}
     {% endfor %}
 {% endif %}

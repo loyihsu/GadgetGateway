@@ -6,44 +6,50 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>GadgetGateway</h1>
-<div>
-    {% if user.is_authenticated %}
-        Welcome, {{ user.username }}!
-    {% else %}
-        Welcome to GadgetGateway!
-    {% endif %}
-     <br />
+<div class="jumbotron text-center">
+    <h1>GadgetGateway</h1>
+    <div>
+        {% if user.is_authenticated %}
+            Welcome, {{ user.username }}!
+        {% else %}
+            Welcome to GadgetGateway!
+        {% endif %}
+        <br />
+    </div>
 </div>
-<div>
-    <h2>Most Liked Products</h2>
-    {% if most_liked %}
-        <ul>
-            {% for item in most_liked %}
-                <li>
-                    {{ item.name }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <strong>There are no most liked products (sniff sniff)</strong> 
-    {% endif %}
-</div>
-<div>
-    <h2>Most Disliked Products</h2>
-    {% if most_disliked %}
-        <ul>
-            {% for item in most_disliked %}
-                <li>
-                    {{ item.name }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <strong>There are no most disliked products (yay)</strong> 
-    {% endif %}
-</div>
-<div>
-    <img src="{% static 'images/rango.jpg' %}" alt="Picture of a rango" />
+<div class="container">
+    <div class="card-group">
+        <div class="card">
+            <div class="card-body">
+                <h2>Most Liked Products</h2>
+                {% if most_liked %}
+                    <ul>
+                        {% for item in most_liked %}
+                            <li>
+                                {{ item.name }} ({{ item.likes }} / {{ item.dislikes }})
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no most liked products (sniff sniff)</strong> 
+                {% endif %}
+            </div>
+        </div>
+        <div class="card">
+        <div class="card-body">
+            <h2>Most Disliked Products</h2>
+            {% if most_disliked %}
+                <ul>
+                    {% for item in most_disliked %}
+                        <li>
+                            {{ item.name }} ({{ item.likes }} / {{ item.dislikes }})
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <strong>There are no most disliked products (yay)</strong> 
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}

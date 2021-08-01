@@ -6,11 +6,19 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Login to Rango</h1>
-    <form id="login_form" method="post" action="{% url 'gadgetgateway:login' %}">
-        {% csrf_token %}
-        Username: <input type="text" name="username" value="" size="50" /> <br />
-        Password: <input type="password" name="password" value="" size="50" /> <br />
-        <input type="submit" value="submit" />
-    </form>
+    <div class="container">
+        <h1>Login to GadgetGateway</h1>
+        <form id="login_form" method="post" action="{% url 'gadgetgateway:login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" value="" size="50" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" value="" size="50" />
+            </div>
+            <input class="btn btn-success" type="submit" value="Login" />
+        </form>
+    </div>
 {% endblock %}
