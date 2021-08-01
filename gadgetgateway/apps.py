@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class GadgetgatewayConfig(AppConfig):
+class RangoConfig(AppConfig):
     name = 'gadgetgateway'

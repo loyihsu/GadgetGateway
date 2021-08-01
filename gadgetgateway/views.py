@@ -9,8 +9,6 @@ from gadgetgateway.models import Category, Product
 
 from datetime import datetime
 
-app_name = 'gadgetgateway'
-
 # Create your views here.
 def index(request):
     most_liked = Product.objects.order_by('-likes')[:5]
@@ -22,7 +20,7 @@ def index(request):
     visitor_cookie_handler(request)
 
     # Obtain our Response object early so we can add cookie information.
-    response = render(request, app_name + '/index.html', context=context_dict)
+    response = render(request, 'gadgetgateway/index.html', context=context_dict)
 
     # Return response back to the user, updating any cookies that need changed.
     return response
@@ -30,7 +28,7 @@ def index(request):
 
 def about(request):
     context_dict = {'visits': request.session['visits']}
-    return render(request, app_name + '/about.html', context=context_dict)
+    return render(request, 'gadgetgateway/about.html', context=context_dict)
 
 
 def show_category(request, category_name_slug):
@@ -46,7 +44,7 @@ def show_category(request, category_name_slug):
         context_dict['category'] = None
         context_dict['products'] = None
 
-    return render(request, app_name + '/category.html', context=context_dict)
+    return render(request, 'gadgetgateway/category.html', context=context_dict)
 
 @login_required
 def add_product(request, category_name_slug):
@@ -68,13 +66,13 @@ def add_product(request, category_name_slug):
                 page = form.save(commit=False)
                 page.category = category
                 page.save()
-                return redirect(reverse(app_name + ':show_category', kwargs={'category_name_slug': category_name_slug}))
+                return redirect(reverse('gadgetgateway:show_category', kwargs={'category_name_slug': category_name_slug}))
 
         else:
             print(form.errors)
 
     context_dict = {'form': form, 'category': category}
-    return render(request, app_name + '/add_product.html', context=context_dict)
+    return render(request, 'gadgetgateway/add_product.html', context=context_dict)
 
 
 # Login System
@@ -127,7 +125,7 @@ def register(request):
         profile_form = UserProfileForm()
 
     # Render template depending on the context
-    return render(request, app_name + '/register.html', 
+    return render(request, 'gadgetgateway/register.html', 
     context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
 
@@ -149,7 +147,7 @@ def user_login(request):
             if user.is_active:
                 # If the user is valid and active, allow login
                 login(request, user)
-                return redirect(reverse(app_name + ':index'))
+                return redirect(reverse('gadgetgateway:index'))
 
             else:
                 return HttpResponse("Your rango account is disabled.")
@@ -160,7 +158,7 @@ def user_login(request):
 
     # If the form is not post, display the login form
     else:
-        return render(request, app_name + '/login.html')
+        return render(request, 'gadgetgateway/login.html')
 
 
 @login_required
@@ -174,7 +172,7 @@ def user_logout(request):
     # Logout the last logged in user
     logout(request)
     # Redirect to homepage
-    return redirect(reverse(app_name + ':index'))
+    return redirect(reverse('gadgetgateway:index'))
 
 
 # Visitor count

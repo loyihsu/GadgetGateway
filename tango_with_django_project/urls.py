@@ -17,16 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-from rango import views
-import rango
+from gadgetgateway import views
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('rango/', include('rango.urls')),
-    # The above maps any URLs starting with rango/ to be handled by rango.
+    path('gadget-gateway/', include('gadgetgateway.urls')),
+    # The above maps any URLs starting with gadgetgateway/ to be handled by gadgetgateway.
     path('admin/', admin.site.urls),
-    path('gadget-gateway/', include('gadgetgateway.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

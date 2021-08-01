@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rango',
-    'gadgetgateway',     # Migration tool
+    'gadgetgateway',
 ]
 
 MIDDLEWARE = [
@@ -109,7 +108,7 @@ PASSWORD_HASHERS = [
 'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
 
-LOGIN_URL = 'rango:login'
+LOGIN_URL = 'gadgetgateway:login'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
