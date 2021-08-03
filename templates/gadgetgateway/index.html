@@ -41,8 +41,9 @@
         </div>
         <div class="card">
         <div class="card-body">
-            <h2>Most Disliked Products</h2>
-            {% if most_disliked %}
+            <h2>Most Viewed Products</h2>
+            This space is reserved for the most viewed items.
+            {% comment %} {% if most_disliked %}
                 <ul>
                     {% for item in most_disliked %}
                         <li>
@@ -52,7 +53,7 @@
                 </ul>
             {% else %}
                 <strong>There are no most disliked products (yay)</strong> 
-            {% endif %}
+            {% endif %} {% endcomment %}
         </div>
     </div>
 </div>
