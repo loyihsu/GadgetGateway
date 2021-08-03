@@ -30,6 +30,9 @@ def about(request):
     context_dict = {'visits': request.session['visits']}
     return render(request, 'gadgetgateway/about.html', context=context_dict)
 
+def news(request):
+    # context_dict = {}
+    return render(request, 'gadgetgateway/news.html') #, context=context_dict)
 
 def show_category(request, category_name_slug):
     context_dict = {}

@@ -6,6 +6,7 @@ app_name = 'gadgetgateway'
 urlpatterns = [
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
+    path('news/', views.news, name='news'),
     path('category/<slug:category_name_slug>/', views.show_category, name='show_category'),
     path('category/<slug:category_name_slug>/add_product/', views.add_product, name="add_product"),
     path('register/', views.register, name="register"),
