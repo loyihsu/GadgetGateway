@@ -2,7 +2,7 @@ from django import forms
 from django.forms import fields
 from django.contrib.auth.models import User
 
-from gadgetgateway.models import Category, Product, UserProfile
+from gadgetgateway.models import Category, Product, UserProfile, Comment
 
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the category name.")
@@ -20,8 +20,7 @@ class ProductForm(forms.ModelForm):
     description = forms.CharField(max_length=240, help_text="Some descriptions of the product you are adding.")
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     
-    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    dislikes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     
     class Meta:
         model = Product
@@ -38,4 +37,14 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('website', 'picture')
+        fields = ('picture',)
+
+class CommentForm(forms.ModelForm):
+    # This may or may not work, idk
+    recommended = forms.BooleanField(help_text="Do you recommend this product?", required=True)
+    text = forms.CharField(max_length=5000)
+    date = forms.DateField(widget=forms.HiddenInput())
+    class Meta:
+        model = Comment
+        fields = ('recommended', 'text')
+

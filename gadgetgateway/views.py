@@ -11,10 +11,9 @@ from datetime import datetime
 
 # Create your views here.
 def index(request):
-    most_liked = Product.objects.order_by('-likes')[:5]
-    most_disliked = Product.objects.order_by('-dislikes')[:5]
+    most_liked = Product.objects.order_by('-votes')[:5]
 
-    context_dict = {'most_liked': most_liked, 'most_disliked': most_disliked}
+    context_dict = {'most_liked': most_liked}
 
     # Call the helper function to handle the cookies
     visitor_cookie_handler(request)
