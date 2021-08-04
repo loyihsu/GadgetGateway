@@ -30,7 +30,7 @@
                     <ul>
                         {% for item in most_liked %}
                             <li>
-                                {{ item.name }} ({{ item.votes }})
+                                {{ item.name }} (Likes: {{ item.votes }})
                             </li>
                         {% endfor %}
                     </ul>
@@ -42,18 +42,17 @@
         <div class="card">
         <div class="card-body">
             <h2>Most Viewed Products</h2>
-            This space is reserved for the most viewed items.
-            {% comment %} {% if most_disliked %}
+            {% if most_viewed %}
                 <ul>
-                    {% for item in most_disliked %}
+                    {% for item in most_viewed %}
                         <li>
-                            {{ item.name }} ({{ item.likes }} / {{ item.dislikes }})
+                            {{ item.name }} (Views: {{ item.views }})
                         </li>
                     {% endfor %}
                 </ul>
             {% else %}
-                <strong>There are no most disliked products (yay)</strong> 
-            {% endif %} {% endcomment %}
+                <strong>There are no most_viewed products (yay)</strong> 
+            {% endif %} 
         </div>
     </div>
 </div>
