@@ -16,10 +16,17 @@
         <h1>{{category.name}}</h1>
         {% if products %}
         <table class="table">
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Votes</th>
             {% for product in products %}
             <tr>
                 <td>
-                {{ product }}
+                {{ product }} <br />
+                </td>
+                <td>
+                {{ product.description }}
                 </td>
                 <td>
                 {{ product.votes }}

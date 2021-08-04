@@ -29,7 +29,29 @@ def populate():
          'views': 0},
     ]
 
-    categories = {'Laptop': laptop_products, 'Smartphone': smartphone_products}
+    wearable_products = [
+        {'name': 'Apple Watch Series 6',
+         'description': 'The Apple Watch Series 6 features a faster S6 chip and blood oxygen level tracking.',
+         'votes': 1720,
+         'views': 0},
+        {'name': 'Huawei Watch 3 Pro',
+         'description': 'Continuous Health Monitoring | Up to 14-Day Battery Life | Independent Calling',
+         'votes': 1214,
+         'views': 0},
+    ]
+
+    headphone_products = [
+        {'name': 'Sony MDR-1AM2',
+         'description': 'Affordable and approachable, the Sony MDR-1AM2 is a great starting pair of audiophile headphones',
+         'votes': 720,
+         'views': 0},
+        {'name': 'AirPods Pro',
+         'description': 'AirPods Pro earphones featuring noise canceling technology, a new design, improved water resistance, and a $249 price tag',
+         'votes': 1214,
+         'views': 0},
+    ]
+
+    categories = {'Laptop': laptop_products, 'Smartphone': smartphone_products, 'Wearable': wearable_products, 'Headphone': headphone_products}
 
     for category, data in categories.items():
         cat = add_category(category)

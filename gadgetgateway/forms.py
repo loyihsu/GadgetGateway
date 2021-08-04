@@ -17,7 +17,7 @@ class CategoryForm(forms.ModelForm):
 
 class ProductForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the name of the product.")
-    description = forms.CharField(max_length=240, help_text="Some descriptions of the product you are adding.")
+    description = forms.CharField(max_length=100, help_text="A quick description of the product. (100 characters)")
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     
     votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
