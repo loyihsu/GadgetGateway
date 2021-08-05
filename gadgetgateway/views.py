@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from gadgetgateway.forms import ProductForm , UserForm, UserProfileForm, CommentForm
 from gadgetgateway.models import Category, Comment, Product
@@ -38,11 +39,19 @@ def show_category(request, category_name_slug):
 
     try:
         category = Category.objects.get(slug=category_name_slug)
-        products = Product.objects.filter(category=category)
+        products_list = Product.objects.filter(category=category)
+
+        # Pagination logic
+        page_number = request.GET.get('page', 1)
+        paginator = Paginator(products_list, 3)
+        page_obj = paginator.get_page(page_number)
+        products = paginator.page(page_number)
+        
         context_dict['category'] = category
         context_dict['products'] = products
+        context_dict['page_obj'] = page_obj
 
-    except Category.DoesNotExist:
+    except Category.DoesNotExist or PageNotAnInteger or EmptyPage:
         context_dict['category'] = None
         context_dict['products'] = None
 
