@@ -21,16 +21,20 @@
             <th>Product Name</th>
             <th>Description</th>
             <th>Votes</th>
+            <th>Views</th>
         {% for product in results %}
         <tr>
             <td>
-            {{ product }} 
+            <a href="{%  url 'gadgetgateway:view_product' product.category.slug product.slug %}">{{ product }}</a> 
             </td>
             <td>
             {{ product.description }}
             </td>
             <td>
             {{ product.votes }}
+            </td>
+            <td>
+            {{ product.views }}
             </td>
         </tr>
         {% endfor %}
