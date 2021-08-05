@@ -42,7 +42,7 @@
                                     <i class="fa fa-thumbs-down"></i> Dislike
                                   </button>
                                 {% else %}
-                                  You have {{ reaction_ed }} this post.
+                                  <p class="mr-2">You have {{ reaction_ed }} this post! </p> 
                                   <form action="{% url 'gadgetgateway:undo_reactions' category.slug product.slug %}" method="POST">
                                   {% csrf_token %}
                                     <button type="submit" name="product_name_slug" value="{{ product.slug }}" class="btn btn-outline-danger mr-2">

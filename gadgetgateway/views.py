@@ -46,9 +46,12 @@ def show_category(request, category_name_slug):
         category = Category.objects.get(slug=category_name_slug)
         products_list = Product.objects.filter(category=category)
 
+        products_list = sorted(products_list, key=lambda t: t.get_satisfactory_rate())
+        products_list.reverse()
+
         # Pagination logic
         page_number = request.GET.get('page', 1)
-        paginator = Paginator(products_list, 3)
+        paginator = Paginator(products_list, 9)
         page_obj = paginator.get_page(page_number)
         products = paginator.page(page_number)
         
@@ -223,8 +226,9 @@ def search(request):
     if request.method == 'POST':
         query = request.POST['query'].strip()
         if query:
-            results = Product.objects.filter(name__icontains=query)
-
+            results = sorted(Product.objects.filter(name__icontains=query), key= lambda t: t.get_satisfactory_rate())
+            results.reverse()
+            
     return render(request, 'gadgetgateway/search.html', {'results': results})
 
 def view_product(request, product_name_slug, category_name_slug):
