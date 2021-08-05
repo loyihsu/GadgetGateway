@@ -222,6 +222,7 @@ def view_product(request, product_name_slug, category_name_slug):
             if comment_form.is_valid():
                 new_comment = comment_form.save(commit=False)
                 new_comment.product = product
+                new_comment.user = request.user
                 new_comment.save()
         else:
             comment_form = CommentForm()
