@@ -11,22 +11,22 @@ def populate():
         {'name': '13-inch M1 MacBook Pro',
          'description': 'The new MacBook Pro without a new design, featuring the first Apple Silicon chip.',
          'votes': 1000,
-         'views': 0},
+         'views': 2500},
         {'name': '2020 16-inch MacBook Pro',
          'description': 'The 16-inch MacBook Pro released in 2020. It is commonly mentioned as the last MacBook Pro with an Intel chip.',
          'votes': 600,
-         'views': 0},
+         'views': 1600},
     ]
 
     smartphone_products = [
         {'name': 'iPhone 12 mini',
          'description': 'iPhone 12 mini is commonly named the smallest phone in 2020.',
          'votes': 1020,
-         'views': 0},
+         'views': 2000},
         {'name': 'iPhone 12 Pro Max',
          'description': 'iPhone 12 Pro Max is the best phone Apple have made so far.',
          'votes': 1000,
-         'views': 0},
+         'views': 50},
     ]
 
     wearable_products = [
@@ -44,7 +44,7 @@ def populate():
         {'name': 'Sony MDR-1AM2',
          'description': 'Affordable and approachable, the Sony MDR-1AM2 is a great starting pair of audiophile headphones',
          'votes': 720,
-         'views': 0},
+         'views': 60},
         {'name': 'AirPods Pro',
          'description': 'AirPods Pro earphones featuring noise canceling technology, a new design, improved water resistance, and a $249 price tag',
          'votes': 1214,
