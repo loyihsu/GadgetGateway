@@ -51,9 +51,8 @@ class Product(models.Model):
 
 class Comment(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='comments')
-    name = models.CharField(max_length=80)
-    email = models.EmailField()
-    body = models.TextField()
+    user = models.ForeignKey(User, default=1, on_delete=CASCADE)
+    comment = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False)
     recommended = models.BooleanField(default=False)
@@ -62,7 +61,7 @@ class Comment(models.Model):
         ordering = ['created_on']
 
     def __str__(self):
-        return 'Comment {} by {}'.format(self.body, self.name)
+        return 'Comment {} by {}'.format(self.comment, self.user)
 
 class UserProfile(models.Model):
     # Link to map UserProfile to a user model instance.

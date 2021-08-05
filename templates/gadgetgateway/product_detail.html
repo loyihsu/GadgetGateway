@@ -40,12 +40,12 @@
                     {% for comment in comments %}
                     <div class="comments" style="padding: 10px;">
                       <p class="font-weight-bold">
-                        {{ comment.name }}
+                        {{ comment.user }}
                         <span class=" text-muted font-weight-normal">
                           {{ comment.created_on }}
                         </span>
                       </p>
-                      {{ comment.body | linebreaks }}
+                      {{ comment.comment_body | linebreaks }}
                       {% if comment.recommended %}
                         <p><i class="fa fa-thumbs-up font-weight-normal"> </i>  This user recommends this product!</p>
                       {% else %}
@@ -59,7 +59,7 @@
                   <div class="card-body">
                     {% if new_comment %}
                     <div class="alert alert-success" role="alert">
-                      Your comment is awaiting moderation
+                      Your comment is awaiting admin approval
                     </div>
                     {% else %}
                     <h3>Leave a comment</h3>

@@ -40,8 +40,8 @@ class UserProfileForm(forms.ModelForm):
         fields = ('picture',)
 
 class CommentForm(forms.ModelForm):
-    recommended = forms.BooleanField(help_text="Do you recommend this product?", required=True)
+    recommended = forms.BooleanField(help_text="Do you recommend this product?", required=False)
     class Meta:
         model = Comment
-        fields = ('name', 'email', 'body', 'recommended')
+        fields = ('comment', 'recommended')
 
