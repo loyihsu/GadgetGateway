@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from gadgetgateway.forms import ProductForm , UserForm, UserProfileForm, CommentForm
-from gadgetgateway.models import Category, Comment, Product
+from gadgetgateway.models import Category, Comment, Product, News
 from datetime import datetime
 
 # Create your views here.
@@ -33,8 +33,8 @@ def about(request):
     return render(request, 'gadgetgateway/about.html', context=context_dict)
 
 def news(request):
-    # context_dict = {}
-    return render(request, 'gadgetgateway/news.html') #, context=context_dict)
+    context_dict = {'news_items': News.objects.all()}
+    return render(request, 'gadgetgateway/news.html', context=context_dict)
 
 def show_category(request, category_name_slug):
     context_dict = {}
