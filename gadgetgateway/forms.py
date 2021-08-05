@@ -40,11 +40,8 @@ class UserProfileForm(forms.ModelForm):
         fields = ('picture',)
 
 class CommentForm(forms.ModelForm):
-    # This may or may not work, idk
     recommended = forms.BooleanField(help_text="Do you recommend this product?", required=True)
-    text = forms.CharField(max_length=5000)
-    date = forms.DateField(widget=forms.HiddenInput())
     class Meta:
         model = Comment
-        fields = ('recommended', 'text')
+        fields = ('name', 'email', 'body', 'recommended')
 

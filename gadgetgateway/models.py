@@ -1,7 +1,10 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 from django.db.models.fields.related import ForeignKey
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from tango_with_django_project import settings
+from django.urls import reverse
 
 # Create your models here.
 
@@ -23,7 +26,6 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=128, unique=True)
     description = models.CharField(max_length=240)
-    # Assuming each product can have only one category
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='product_image', blank=True)
 
@@ -33,6 +35,9 @@ class Product(models.Model):
     votes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
 
+    def number_of_likes(self):
+        return self.votes.count()
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Product, self).save(*args, ** kwargs)
@@ -40,15 +45,24 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    # Get the article address
+    def get_absolute_url(self):
+        return reverse('gadgetgateway:product', args=[self.name, self.category])
+
 class Comment(models.Model):
-    product = ForeignKey(Product, on_delete=models.CASCADE)
-    text = models.CharField(max_length=5000)
-    date = models.DateField()
-    recommended = models.BooleanField()
-    # May need to include user as foreign key if we want to show users
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+    recommended = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['created_on']
 
     def __str__(self):
-        return self.text
+        return 'Comment {} by {}'.format(self.body, self.name)
 
 class UserProfile(models.Model):
     # Link to map UserProfile to a user model instance.

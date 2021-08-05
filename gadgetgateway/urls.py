@@ -14,4 +14,5 @@ urlpatterns = [
     path('login/', views.user_login, name="login"),
     path('restricted/', views.restricted, name="restricted"),
     path('logout/', views.user_logout, name='logout'),
+    #path('category/<slug:category_name_slug>/<slug:product_name_slug>/comment', views.comment, name='post_comment')
 ]

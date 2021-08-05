@@ -1,11 +1,13 @@
 from django.http.response import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views import generic
 
-from gadgetgateway.forms import ProductForm , UserForm, UserProfileForm
-from gadgetgateway.models import Category, Product
+from gadgetgateway.forms import ProductForm , UserForm, UserProfileForm, CommentForm
+from gadgetgateway.models import Category, Comment, Product
 
 from datetime import datetime
 
@@ -210,12 +212,34 @@ def view_product(request, product_name_slug, category_name_slug):
 
     try:
         category = Category.objects.get(slug=category_name_slug)
-        product = Product.objects.get(slug=product_name_slug)
-        context_dict['category'] = category
-        context_dict['product'] = product
+        product = get_object_or_404(Product, slug=product_name_slug)
+        comments = Comment.objects.filter(product=product, active=True)
+        new_comment = None
+        
+        # Comment posted
+        if request.method == 'POST':
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+
+                # Create Comment object but don't save to database yet
+                new_comment = comment_form.save(commit=False)
+                # Assign the current post to the comment
+                new_comment.product = product
+                #new_comment.recommended = comment_form.recommended
+                # Save the comment to the database
+                new_comment.save()
+        else:
+            comment_form = CommentForm()
 
     except Category.DoesNotExist or Product.DoesNotExist:
         context_dict['category'] = None
         context_dict['product'] = None
+        context_dict['comments'] = None
 
-    return render(request, 'gadgetgateway/product.html', context=context_dict)
+    return render(request, 'gadgetgateway/product_detail.html', {
+            "category": category,
+            "product": product,
+            "comments": comments,
+            "new_comment": new_comment,
+            "comment_form": comment_form,
+        })
