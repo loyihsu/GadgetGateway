@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from gadgetgateway import views
+from allauth.account.views import LoginView, SignupView 
 
 app_name = 'gadgetgateway'
 
@@ -15,5 +16,8 @@ urlpatterns = [
     path('login/', views.user_login, name="login"),
     path('restricted/', views.restricted, name="restricted"),
     path('logout/', views.user_logout, name='logout'),
-    path('search/', views.search, name='search')
+    path('search/', views.search, name='search'),
+
+    # path('account/login/', LoginView.as_view(), name="login" ),
+    # path('account/signup/', SignupView.as_view(), name="register" ),
 ]
