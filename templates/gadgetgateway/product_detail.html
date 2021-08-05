@@ -26,21 +26,30 @@
                           <div class="btn-group mr-2" role="group" aria-label="First group">
                             
                             <button type="button" class="btn btn-outline-info mr-2">{{ product.views }} <i class="fa fa-eye"></i></button>
-
-                            <form action="{% url 'gadgetgateway:like_product' category.slug product.slug %}" method="POST">
-                              {% csrf_token %}
                               {% if user.is_authenticated %}
-                                {% if liked %}
-                                  <button type="submit" name="product_name_slug" value="{{ product.slug }}" class="btn btn-outline-danger mr-2">
-                                    <input type="hidden" name="category_name_slug" value="{{ category.slug }}"/>
-                                    <i class="fa fa-thumbs-down"></i> Unlike
-                                  </button>
-
-                                {% else %}
+                                {% if no_vote %}
+                                <form action="{% url 'gadgetgateway:like_product' category.slug product.slug %}" method="POST">
+                                  {% csrf_token %}
                                   <button type="submit" name="product_name_slug" value="{{ product.slug }}" class="btn btn-outline-info mr-2">
                                     <input type="hidden" name="category_name_slug" value="{{ category.slug }}"/>
-                                    <i class="fa fa-thumbs-up"></i> Like
+                                    <i class="fa fa-thumbs-up"></i> Like 
                                   </button>
+                                </form>
+                                <form action="{% url 'gadgetgateway:dislike_product' category.slug product.slug %}" method="POST">
+                                  {% csrf_token %}
+                                  <button type="submit" name="product_name_slug" value="{{ product.slug }}" class="btn btn-outline-danger mr-2">
+                                    <input type="hidden" name="category_name_slug" value="{{ category.slug }}"/>
+                                    <i class="fa fa-thumbs-down"></i> Dislike
+                                  </button>
+                                {% else %}
+                                  You have {{ reaction_ed }} this post.
+                                  <form action="{% url 'gadgetgateway:undo_reactions' category.slug product.slug %}" method="POST">
+                                  {% csrf_token %}
+                                    <button type="submit" name="product_name_slug" value="{{ product.slug }}" class="btn btn-outline-danger mr-2">
+                                      <input type="hidden" name="category_name_slug" value="{{ category.slug }}"/>
+                                      Undo
+                                    </button>
+                                  </form>
                                 {% endif %}
                                 {{ total_likes }} Likes
                               {% else %}

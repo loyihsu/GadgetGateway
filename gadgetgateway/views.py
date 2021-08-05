@@ -8,13 +8,15 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from gadgetgateway.forms import ProductForm , UserForm, UserProfileForm, CommentForm
-from gadgetgateway.models import Category, Comment, Product
+from gadgetgateway.models import Category, Comment, Product, Vote
 from datetime import datetime
 
 # Create your views here.
 def index(request):
-    most_liked = Product.objects.order_by('-votes')[:5]
-    # most_disliked = Product.objects.order_by('votes')[:5]
+    most_liked = sorted(Product.objects.all(), key= lambda t: t.get_likes())
+    most_liked.reverse()
+    most_liked = most_liked[:5]
+
     most_viewed = Product.objects.order_by('-views')[:5]
 
     context_dict = {'most_liked': most_liked, 'most_viewed': most_viewed}
@@ -236,12 +238,18 @@ def view_product(request, product_name_slug, category_name_slug):
         comments = Comment.objects.filter(product=product, active=True)
         user = request.user
         new_comment = None
-        total_likes = product.total_likes()
-        liked = False
+        all_votee = Vote.objects.filter(votee=product).all()
+        can_like = True
+        reaction_ed = ""
 
-        if product.votes.filter(id=request.user.id).exists():
-            liked = True
-        
+        vote = all_votee.filter(voter=user)
+        if vote:
+            if vote.all()[0].positivity == True:
+                reaction_ed = 'liked'
+            else:
+                reaction_ed = 'disliked'
+            can_like = False
+
         # Comment posted
         if request.method == 'POST':
             comment_form = CommentForm(data=request.POST)
@@ -262,7 +270,8 @@ def view_product(request, product_name_slug, category_name_slug):
             "comment_form": None,
             "user": None,
             "total_likes": None,
-            "liked": None
+            "no_vote": None,
+            "reaction_ed": None
         }
 
     return render(request, 'gadgetgateway/product_detail.html', {
@@ -272,22 +281,35 @@ def view_product(request, product_name_slug, category_name_slug):
             "new_comment": new_comment,
             "comment_form": comment_form,
             "user": user,
-            "total_likes": total_likes,
-            "liked": liked
+            "total_likes": product.get_satisfactory_rate(),
+            "no_vote": can_like,
+            "reaction_ed": reaction_ed
         })
 
 
 def like_product(request, category_name_slug, product_name_slug):
     product = get_object_or_404(Product, slug=request.POST.get('product_name_slug'))
-    liked = False
+    user = request.user
 
-    if product.votes.filter(id=request.user.id).exists():
-        product.votes.remove(request.user)
-        liked = False
+    like = Vote.objects.get_or_create(votee=product, voter=user, positivity=True)[0]
+    like.save()
 
-    else:
-        product.votes.add(request.user)
-        liked = True
+    return HttpResponseRedirect(reverse('gadgetgateway:view_product', 
+        kwargs={"product_name_slug": product_name_slug, "category_name_slug": category_name_slug}))
 
+def dislike_product(request, category_name_slug, product_name_slug):
+    product = get_object_or_404(Product, slug=request.POST.get('product_name_slug'))
+    user = request.user
+
+    like = Vote.objects.get_or_create(votee=product, voter=user, positivity=False)[0]
+    like.save()
+
+    return HttpResponseRedirect(reverse('gadgetgateway:view_product', 
+        kwargs={"product_name_slug": product_name_slug, "category_name_slug": category_name_slug}))
+
+def undo_reactions(request, category_name_slug, product_name_slug):
+    product = get_object_or_404(Product, slug=request.POST.get('product_name_slug'))
+    user = request.user
+    Vote.objects.filter(voter=user, votee=product).delete()
     return HttpResponseRedirect(reverse('gadgetgateway:view_product', 
         kwargs={"product_name_slug": product_name_slug, "category_name_slug": category_name_slug}))

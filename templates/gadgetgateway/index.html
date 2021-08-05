@@ -81,12 +81,12 @@
     <div class="card-group">
         <div class="card">
             <div class="card-body">
-                <h2>Most Liked Products</h2>
+                <h2>Most Satisfied Products</h2>
                 {% if most_liked %}
                     <ul>
                         {% for item in most_liked %}
                             <li>
-                                {{ item.name }} (Likes: {{ item.votes }})
+                                {{ item.name }} (Satisfied: {{ item.get_satisfactory_rate }})
                             </li>
                         {% endfor %}
                     </ul>

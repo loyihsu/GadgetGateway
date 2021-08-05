@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
+from django.db.models.fields import BooleanField
 from django.db.models.fields.related import ForeignKey
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -32,10 +33,18 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
 
     views = models.IntegerField(default=0)
-    votes = models.ManyToManyField(User, related_name="product_likes")
 
-    def total_likes(self):
-        return self.votes.count()
+    def get_likes(self):
+        votes = Vote.objects.all().filter(votee=self, positivity=True)
+        return len(votes)
+
+    def get_satisfactory_rate(self):
+        votes = Vote.objects.all().filter(votee=self)
+        positive = votes.filter(positivity=True)
+        negative = votes.filter(positivity=False)
+        if len(votes) == 0:
+            return 0
+        return len(positive) - len(negative)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -71,3 +80,8 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Vote(models.Model):
+    voter = ForeignKey(User, on_delete=CASCADE)
+    votee = ForeignKey(Product, on_delete=CASCADE)
+    positivity = BooleanField()
