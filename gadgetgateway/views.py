@@ -1,13 +1,13 @@
-import re
-from django.http.response import HttpResponse
-from django.shortcuts import redirect, render
+from django.http.response import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from gadgetgateway.forms import ProductForm , UserForm, UserProfileForm
-from gadgetgateway.models import Category, Product
-
+from gadgetgateway.forms import ProductForm , UserForm, UserProfileForm, CommentForm
+from gadgetgateway.models import Category, Comment, Product
 from datetime import datetime
 
 # Create your views here.
@@ -41,11 +41,19 @@ def show_category(request, category_name_slug):
 
     try:
         category = Category.objects.get(slug=category_name_slug)
-        products = Product.objects.filter(category=category)
+        products_list = Product.objects.filter(category=category)
+
+        # Pagination logic
+        page_number = request.GET.get('page', 1)
+        paginator = Paginator(products_list, 3)
+        page_obj = paginator.get_page(page_number)
+        products = paginator.page(page_number)
+        
         context_dict['category'] = category
         context_dict['products'] = products
+        context_dict['page_obj'] = page_obj
 
-    except Category.DoesNotExist:
+    except Category.DoesNotExist or PageNotAnInteger or EmptyPage:
         context_dict['category'] = None
         context_dict['products'] = None
 
@@ -216,3 +224,61 @@ def search(request):
             results = Product.objects.filter(name__icontains=query)
 
     return render(request, 'gadgetgateway/search.html', {'results': results})
+
+def view_product(request, product_name_slug, category_name_slug):
+
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+        product = get_object_or_404(Product, slug=product_name_slug)
+        product.views += 1
+        product.save()
+        comments = Comment.objects.filter(product=product, active=True)
+        user = request.user
+        new_comment = None
+        
+        # Comment posted
+        if request.method == 'POST':
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.product = product
+                new_comment.user = request.user
+                new_comment.save()
+        else:
+            comment_form = CommentForm()
+
+    except Category.DoesNotExist or Product.DoesNotExist:
+        {
+            "category": None,
+            "product": None,
+            "comments": None,
+            "new_comment": None,
+            "comment_form": None,
+            "user": None
+        }
+
+    return render(request, 'gadgetgateway/product_detail.html', {
+            "category": category,
+            "product": product,
+            "comments": comments,
+            "new_comment": new_comment,
+            "comment_form": comment_form,
+            "user": user
+        })
+
+
+def like_product(request, product_name_slug, category_name_slug):
+    if request.method == 'GET':
+        try:
+            flag = request.GET.get('flag')
+            selected_page = Product.objects.get(slug=product_name_slug) 
+        except Product.DoesNotExist:
+            return redirect(reverse('gadgetgateway:index'))
+
+        if int(flag):
+            selected_page.votes = selected_page.votes + 1 
+        else:
+            selected_page.dislikes = selected_page.dislikes + 1 
+        selected_page.save()
+        print(selected_page.votes)
+    return HttpResponseRedirect(request.path_info[:-5])

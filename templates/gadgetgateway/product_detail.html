@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% extends 'gadgetgateway/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title_block %}
+    {% if category %}
+        {{ category.name }}
+    {% else %}
+        Unknown Category
+    {% endif %}
+{% endblock %}
+
+{% block body_block%}
+  <div class="container">
+    
+    {% if category %}
+    {% if product %}
+        <h1>{{product.name}}</h1>
+    <div class="row">
+              <div class="card-group">
+                  <div class="card">
+                      <img class="card-img-top" src= "{{ MEDIA_URL}}{{ product.image }}" alt="Card image cap">
+                      <div class="card-body">
+                          <p class="card-text">{{ product.description }}</p>
+                          <div class="btn-group mr-2" role="group" aria-label="First group">
+                            
+                            <button type="button" class="btn btn-outline-info mr-2">{{ product.views }} <i class="fa fa-eye"></i></button>
+                            
+                            <form action="{% url 'gadgetgateway:like_product' category.slug product.slug %}" method="GET">
+                              <input type="hidden" name="flag" id="flag" value=1>
+                              <button type="submit" class="btn btn-outline-info mr-2">
+                                <i class="fa fa-thumbs-up"></i> {{ product.votes }}
+                              </button>
+                            </form>
+                            
+                          <form action="{% url 'gadgetgateway:like_product' category.slug product.slug %}" method="GET">
+                            <input type="hidden" name="flag" id="flag" value=0>
+                            <button type="submit" class="btn btn-outline-info mr-2">
+                                <i class="fa fa-thumbs-down"></i> {{ product.dislikes }}
+                            </button>
+                          </form>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+              <hr>
+              {% if user.is_authenticated %}
+                <div class="col-md-8 card mb-4 mt-3">
+                  <div class="card-body">
+                    <h2>{{ comments.count }} comments </h2>
+            
+                    {% for comment in comments %}
+                    <div class="comments" style="padding: 10px;">
+                      <p class="font-weight-bold">
+                        {{ comment.user }}
+                        <span class=" text-muted font-weight-normal">
+                          {{ comment.created_on }}
+                        </span>
+                      </p>
+                      {{ comment.comment | linebreaks }}
+                      {% if comment.recommended %}
+                        <p><i class="fa fa-thumbs-up font-weight-normal"> </i>  This user recommends this product!</p>
+                      {% else %}
+                        <p><i class="fa fa-thumbs-down"></i>This user does not recommends this product! </p>
+                      {% endif %}
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="col-md-8 card mb-4  mt-3 ">
+                  <div class="card-body">
+                    {% if new_comment %}
+                    <div class="alert alert-success" role="alert">
+                      Your comment is awaiting admin approval
+                    </div>
+                    {% else %}
+                    <h3>Leave a comment</h3>
+                    <form method="post" style="margin-top: 1.3em;">
+                      {{ comment_form | crispy }}
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+                    </form>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+
+        {% else %}
+            <strong>No product currently in category.</strong> <br/>
+        {% endif %}
+      {% else %}
+        <strong> The specified category does not exist. </strong>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
