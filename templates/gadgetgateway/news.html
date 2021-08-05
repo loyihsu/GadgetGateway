@@ -11,6 +11,19 @@ News
 
 {% block body_block %}
 <div class="container"> 
-    <h1>This page is reserved for the news feature.</h1>
+    <h1>Newsroom</h1>
+    {% if news_items %}
+        {% for item in news_items %}
+        <div class="card">
+            <div class="card-body">
+                <h2>{{ item.title }}</h2>
+                <p>{{item.content}}</p>
+                <small>{{item.date}}</small>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p>There is no news items to show!</p>
+    {% endif %}
 </div>
 {% endblock %}
