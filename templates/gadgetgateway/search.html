@@ -16,29 +16,27 @@
         <button class="btn btn-primary" type="submit" name="submit">Search</button>
     </form>
     {% if results %}
-        <table class="table">
-        <tr>
-            <th>Product Name</th>
-            <th>Description</th>
-            <th>Votes</th>
-            <th>Views</th>
+    <div class="card-group">
         {% for product in results %}
-        <tr>
-            <td>
-            <a href="{%  url 'gadgetgateway:view_product' product.category.slug product.slug %}">{{ product }}</a> 
-            </td>
-            <td>
-            {{ product.description }}
-            </td>
-            <td>
-            {{ product.votes }}
-            </td>
-            <td>
-            {{ product.views }}
-            </td>
-        </tr>
+        <div class="card">
+            <a href="{%  url 'gadgetgateway:view_product' product.category.slug product.slug %}"  style="text-decoration:none">
+                <img class="card-img-top" src= "{{ MEDIA_URL }}{{ product.image }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <button type="button" class="btn btn-outline-info mr-2">View/Add Review</button>
+                    <button type="button" class="btn btn-outline-info mr-2">{{ product.views }} <i class="fa fa-eye"></i></button>
+                    {% if product.get_satisfactory_rate >= 0 %}
+                    <button type="button" class="btn btn-outline-info mr-2"><i class="fa fa-thumbs-up"></i> {{ product.get_satisfactory_rate }}</button>
+                    {% else %}
+                    <button type="button" class="btn btn-outline-danger mr-2"><i class="fa fa-thumbs-down"></i> {{ product.get_satisfactory_rate }}</button>
+                    {% endif %}
+
+                </div>
+            </a>
+        </div>
         {% endfor %}
-    </table>
+    </div>
     {% endif %}
 </div>
 {% endblock %}
