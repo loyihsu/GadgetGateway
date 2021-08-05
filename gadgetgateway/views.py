@@ -46,9 +46,12 @@ def show_category(request, category_name_slug):
         category = Category.objects.get(slug=category_name_slug)
         products_list = Product.objects.filter(category=category)
 
+        products_list = sorted(products_list, key=lambda t: t.get_satisfactory_rate())
+        products_list.reverse()
+
         # Pagination logic
         page_number = request.GET.get('page', 1)
-        paginator = Paginator(products_list, 3)
+        paginator = Paginator(products_list, 9)
         page_obj = paginator.get_page(page_number)
         products = paginator.page(page_number)
         
