@@ -51,7 +51,7 @@ def populate():
          'views': 0},
     ]
 
-    categories = {'Laptop': laptop_products, 'Smartphone': smartphone_products, 'Wearable': wearable_products, 'Headphone': headphone_products}
+    categories = {'Laptops': laptop_products, 'Smartphones': smartphone_products, 'Wearables': wearable_products, 'Headphones': headphone_products}
 
     for category, data in categories.items():
         cat = add_category(category)

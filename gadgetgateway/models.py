@@ -25,11 +25,13 @@ class Product(models.Model):
     description = models.CharField(max_length=240)
     # Assuming each product can have only one category
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    
+    image = models.ImageField(upload_to='product_image', blank=True)
+
     slug = models.SlugField(unique=True)
 
     views = models.IntegerField(default=0)
     votes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

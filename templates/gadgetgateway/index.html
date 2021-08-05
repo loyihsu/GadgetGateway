@@ -10,15 +10,17 @@
 {% endblock %}
 
 {% block body_block %}
-<div class="jumbotron text-center">
-    <h1>GadgetGateway</h1>
-    <div>
-        {% if user.is_authenticated %}
-            Welcome, {{ user.username }}!
-        {% else %}
-            Welcome to GadgetGateway!
-        {% endif %}
-        <br />
+<div class="jumbotron p-4">
+    <div class="container">
+        <h1 class="jumbotron-heading">GadgetGateway</h1>
+        <div>
+            {% if user.is_authenticated %}
+                <h3>Welcome, {{ user.username }}!</h3>
+            {% else %}
+                <h3>Welcome to GadgetGateway!</h3>
+            {% endif %}
+            <br />
+        </div>
     </div>
 </div>
 <div class="container">

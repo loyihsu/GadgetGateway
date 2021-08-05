@@ -15,25 +15,23 @@
     {% if category %}
         <h1>{{category.name}}</h1>
         {% if products %}
-        <table class="table">
-            <tr>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Votes</th>
-            {% for product in products %}
-            <tr>
-                <td>
-                {{ product }} 
-                </td>
-                <td>
-                {{ product.description }}
-                </td>
-                <td>
-                {{ product.votes }}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+            <div class="card-group">
+                {% for product in products %}
+                <div class="card">
+                    <a href="{%  url 'gadgetgateway:view_product' category.slug product.slug%}"  style="text-decoration:none">
+                        <img class="card-img-top" src= "{{ MEDIA_URL}}{{ product.image }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <button type="button" class="btn btn-outline-info">View/Add Review</button>
+                            <p class="card-text">{{ product.views }} <i class="fa fa-eye"></i></p>
+                            <button type="button" class="btn btn-outline-info"><i class="fa fa-thumbs-up"></i> {{ product.votes }}</button>
+                            <button type="button" class="btn btn-outline-info"><i class="fa fa-thumbs-down"></i> {{ product.dislikes }}</button>
+                        </div>
+                    </a>
+                </div>
+                {%  endfor %}
+            </div>
         {% else %}
         <strong>No product currently in category.</strong> <br/>
         {% endif %}

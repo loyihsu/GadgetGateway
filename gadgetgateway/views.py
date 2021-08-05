@@ -203,3 +203,19 @@ def visitor_cookie_handler(request):
 
     # Update/set the visits cookie
     request.session['visits'] = visits
+
+
+def view_product(request, product_name_slug, category_name_slug):
+    context_dict = {}
+
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+        product = Product.objects.get(slug=product_name_slug)
+        context_dict['category'] = category
+        context_dict['product'] = product
+
+    except Category.DoesNotExist or Product.DoesNotExist:
+        context_dict['category'] = None
+        context_dict['product'] = None
+
+    return render(request, 'gadgetgateway/product.html', context=context_dict)
