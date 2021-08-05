@@ -227,8 +227,9 @@ def search(request):
     if request.method == 'POST':
         query = request.POST['query'].strip()
         if query:
-            results = Product.objects.filter(name__icontains=query)
-
+            results = sorted(Product.objects.filter(name__icontains=query), key= lambda t: t.get_satisfactory_rate())
+            results.reverse()
+            
     return render(request, 'gadgetgateway/search.html', {'results': results})
 
 def view_product(request, product_name_slug, category_name_slug):

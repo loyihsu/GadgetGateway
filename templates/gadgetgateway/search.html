@@ -16,11 +16,11 @@
         <button class="btn btn-primary" type="submit" name="submit">Search</button>
     </form>
     {% if results %}
-    <div class="card-columns">
+    <div class="row">
         {% for product in results %}
-        <div class="card">
+        <div class="card col-4">
             <a href="{%  url 'gadgetgateway:view_product' product.category.slug product.slug %}"  style="text-decoration:none">
-                <img class="card-img-top" src= "{{ MEDIA_URL }}{{ product.image }}" alt="Card image cap">
+                <img class="card-img-top" src= "{{ MEDIA_URL}}{{ product.image }}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{ product }}</h5>
                     <p class="card-text">{{ product.description }}</p>
