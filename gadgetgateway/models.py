@@ -32,10 +32,9 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
 
     views = models.IntegerField(default=0)
-    votes = models.IntegerField(default=0)
-    dislikes = models.IntegerField(default=0)
+    votes = models.ManyToManyField(User, related_name="product_likes")
 
-    def number_of_likes(self):
+    def total_likes(self):
         return self.votes.count()
 
     def save(self, *args, **kwargs):

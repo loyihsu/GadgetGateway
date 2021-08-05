@@ -26,20 +26,28 @@
                           <div class="btn-group mr-2" role="group" aria-label="First group">
                             
                             <button type="button" class="btn btn-outline-info mr-2">{{ product.views }} <i class="fa fa-eye"></i></button>
-                            
-                            <form action="{% url 'gadgetgateway:like_product' category.slug product.slug %}" method="GET">
-                              <input type="hidden" name="flag" id="flag" value=1>
-                              <button type="submit" class="btn btn-outline-info mr-2">
-                                <i class="fa fa-thumbs-up"></i> {{ product.votes }}
-                              </button>
+
+                            <form action="{% url 'gadgetgateway:like_product' category.slug product.slug %}" method="POST">
+                              {% csrf_token %}
+                              {% if user.is_authenticated %}
+                                {% if liked %}
+                                  <button type="submit" name="product_name_slug" value="{{ product.slug }}" class="btn btn-outline-danger mr-2">
+                                    <input type="hidden" name="category_name_slug" value="{{ category.slug }}"/>
+                                    <i class="fa fa-thumbs-down"></i> Unlike
+                                  </button>
+
+                                {% else %}
+                                  <button type="submit" name="product_name_slug" value="{{ product.slug }}" class="btn btn-outline-info mr-2">
+                                    <input type="hidden" name="category_name_slug" value="{{ category.slug }}"/>
+                                    <i class="fa fa-thumbs-up"></i> Like
+                                  </button>
+                                {% endif %}
+                                {{ total_likes }} Likes
+                              {% else %}
+                                  <small>Login to like or add review</small> - {{ total_likes }} Likes
+                              {% endif %}
                             </form>
-                            
-                          <form action="{% url 'gadgetgateway:like_product' category.slug product.slug %}" method="GET">
-                            <input type="hidden" name="flag" id="flag" value=0>
-                            <button type="submit" class="btn btn-outline-info mr-2">
-                                <i class="fa fa-thumbs-down"></i> {{ product.dislikes }}
-                            </button>
-                          </form>
+
                           </div>
                       </div>
                     </div>

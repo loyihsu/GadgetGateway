@@ -23,10 +23,9 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ product }}</h5>
                             <p class="card-text">{{ product.description }}</p>
-                            <button type="button" class="btn btn-outline-info">View/Add Review</button>
-                            <p class="card-text">{{ product.views }} <i class="fa fa-eye"></i></p>
-                            <button type="button" class="btn btn-outline-info"><i class="fa fa-thumbs-up"></i> {{ product.votes }}</button>
-                            <button type="button" class="btn btn-outline-info"><i class="fa fa-thumbs-down"></i> {{ product.dislikes }}</button>
+                            <button type="button" class="btn btn-outline-info mr-2">View/Add Review</button>
+                            <button type="button" class="btn btn-outline-info mr-2">{{ product.views }} <i class="fa fa-eye"></i></button>
+                            <button type="button" class="btn btn-outline-info mr-2"><i class="fa fa-thumbs-up"></i> {{ product.total_likes }}</button>
                         </div>
                     </a>
                 </div>

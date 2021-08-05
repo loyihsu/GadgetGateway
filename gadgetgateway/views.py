@@ -1,6 +1,7 @@
+from typing import Tuple
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template.defaultfilters import slugify
+from django.template.defaultfilters import slugify, truncatechars
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -235,6 +236,11 @@ def view_product(request, product_name_slug, category_name_slug):
         comments = Comment.objects.filter(product=product, active=True)
         user = request.user
         new_comment = None
+        total_likes = product.total_likes()
+        liked = False
+
+        if product.votes.filter(id=request.user.id).exists():
+            liked = True
         
         # Comment posted
         if request.method == 'POST':
@@ -254,7 +260,9 @@ def view_product(request, product_name_slug, category_name_slug):
             "comments": None,
             "new_comment": None,
             "comment_form": None,
-            "user": None
+            "user": None,
+            "total_likes": None,
+            "liked": None
         }
 
     return render(request, 'gadgetgateway/product_detail.html', {
@@ -263,22 +271,23 @@ def view_product(request, product_name_slug, category_name_slug):
             "comments": comments,
             "new_comment": new_comment,
             "comment_form": comment_form,
-            "user": user
+            "user": user,
+            "total_likes": total_likes,
+            "liked": liked
         })
 
 
-def like_product(request, product_name_slug, category_name_slug):
-    if request.method == 'GET':
-        try:
-            flag = request.GET.get('flag')
-            selected_page = Product.objects.get(slug=product_name_slug) 
-        except Product.DoesNotExist:
-            return redirect(reverse('gadgetgateway:index'))
+def like_product(request, category_name_slug, product_name_slug):
+    product = get_object_or_404(Product, slug=request.POST.get('product_name_slug'))
+    liked = False
 
-        if int(flag):
-            selected_page.votes = selected_page.votes + 1 
-        else:
-            selected_page.dislikes = selected_page.dislikes + 1 
-        selected_page.save()
-        print(selected_page.votes)
-    return HttpResponseRedirect(request.path_info[:-5])
+    if product.votes.filter(id=request.user.id).exists():
+        product.votes.remove(request.user)
+        liked = False
+
+    else:
+        product.votes.add(request.user)
+        liked = True
+
+    return HttpResponseRedirect(reverse('gadgetgateway:view_product', 
+        kwargs={"product_name_slug": product_name_slug, "category_name_slug": category_name_slug}))
