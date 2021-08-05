@@ -13,7 +13,7 @@ from datetime import datetime
 
 # Create your views here.
 def index(request):
-    most_liked = sorted(Product.objects.all(), key= lambda t: t.get_likes())
+    most_liked = sorted(Product.objects.all(), key= lambda t: t.get_satisfactory_rate())
     most_liked.reverse()
     most_liked = most_liked[:5]
 
