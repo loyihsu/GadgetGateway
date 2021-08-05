@@ -25,9 +25,8 @@ class Product(models.Model):
     description = models.CharField(max_length=240)
     # Assuming each product can have only one category
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    
-    slug = models.SlugField(unique=True)
-
+    url = models.URLField()
+    slug = models.SlugField(unique=True) 
     views = models.IntegerField(default=0)
     votes = models.IntegerField(default=0)
 
