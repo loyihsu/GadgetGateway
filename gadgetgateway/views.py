@@ -75,8 +75,7 @@ def add_product(request, category_name_slug):
     form = ProductForm()
 
     if request.method == 'POST':
-        form = ProductForm(request.POST)
-
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             if category:
                 page = form.save(commit=False)

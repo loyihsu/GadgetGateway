@@ -8,7 +8,7 @@ Add a Product
 {% block body_block %}
 <div>
     <h1>Add a Product</h1>
-    <form id="category_form" method="post" action="{% url 'gadgetgateway:add_product' category.slug %}">
+    <form id="category_form" enctype="multipart/form-data" method="post" action="{% url 'gadgetgateway:add_product' category.slug %}">
         {% csrf_token %}
         {% for hidden in form.hidden_fields  %}
             {{ hidden }}
