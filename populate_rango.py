@@ -4,7 +4,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project.setti
 import django
 django.setup()
 
-from gadgetgateway.models import Category, Product
+from gadgetgateway.models import Category, Product, News
+from datetime import datetime
 
 def populate():
     laptop_products = [
@@ -60,6 +61,15 @@ def populate():
     for c in Category.objects.all():
         for p in Product.objects.filter(category=c):
             print(f'- {c}: {p}')
+
+    # Add news items
+    newsroom = [{'title': 'GadgetGateway is launched!', 'content': 'This website is already launched! Yay!'}]
+
+    for piece in newsroom:
+        add_news(piece['title'], piece['content'])
+
+    for n in News.objects.all():
+        print(f'{n} is added.')
     
 def add_category(name):
     temp = Category.objects.get_or_create(name=name)[0]
@@ -70,6 +80,13 @@ def add_product(name, description, category, views=0):
     temp = Product.objects.get_or_create(name=name, category=category)[0]
     temp.description = description
     temp.views = views
+    temp.save()
+    return temp
+
+def add_news(title, content, date=datetime.now()):
+    temp = News.objects.get_or_create(title=title, content=content)[0]
+    temp.content = content
+    temp.date = date
     temp.save()
     return temp
 

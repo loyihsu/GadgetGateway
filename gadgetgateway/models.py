@@ -85,3 +85,15 @@ class Vote(models.Model):
     voter = ForeignKey(User, on_delete=CASCADE)
     votee = ForeignKey(Product, on_delete=CASCADE)
     positivity = BooleanField()
+
+class News(models.Model):
+    title = models.CharField(max_length=128)
+    content = models.TextField(blank=True)
+    date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['date']
+        verbose_name_plural = 'News'
+
+    def __str__(self):
+        return self.title

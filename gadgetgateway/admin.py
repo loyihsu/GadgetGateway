@@ -1,5 +1,5 @@
 from django.contrib import admin
-from gadgetgateway.models import Category, Product , UserProfile, Comment, Vote
+from gadgetgateway.models import Category, Product , UserProfile, Comment, News, Vote
 
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
@@ -22,4 +22,5 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Comment)
 admin.site.register(UserProfile)
 admin.site.register(Vote)
+admin.site.register(News)
 # admin.site.register(Comments)

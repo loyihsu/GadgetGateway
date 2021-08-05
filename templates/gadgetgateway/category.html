@@ -18,7 +18,7 @@
             <div class="card-group">
                 {% for product in page_obj.object_list %}
                 <div class="card">
-                    <a href="{%  url 'gadgetgateway:view_product' category.slug product.slug%}"  style="text-decoration:none">
+                    <a href="{%  url 'gadgetgateway:view_product' category.slug product.slug %}"  style="text-decoration:none">
                         <img class="card-img-top" src= "{{ MEDIA_URL}}{{ product.image }}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{ product }}</h5>
