@@ -23,17 +23,32 @@
                       <img class="card-img-top" src= "{{ MEDIA_URL}}{{ product.image }}" alt="Card image cap">
                       <div class="card-body">
                           <p class="card-text">{{ product.description }}</p>
-                          <button type="button" class="btn btn-outline-info">View/Add Review</button>
-                          <p class="card-text">{{ product.views }} <i class="fa fa-eye"></i></p>
-                          <button type="button" class="btn btn-outline-info"><i class="fa fa-thumbs-up"></i> {{ product.votes }}</button>
-                          <button type="button" class="btn btn-outline-info"><i class="fa fa-thumbs-down"></i> {{ product.dislikes }}</button>
+                          <div class="btn-group mr-2" role="group" aria-label="First group">
+                            
+                            <button type="button" class="btn btn-outline-info mr-2">{{ product.views }} <i class="fa fa-eye"></i></button>
+                            
+                            <form action="{% url 'gadgetgateway:like_product' category.slug product.slug %}" method="GET">
+                              <input type="hidden" name="flag" id="flag" value=1>
+                              <button type="submit" class="btn btn-outline-info mr-2">
+                                <i class="fa fa-thumbs-up"></i> {{ product.votes }}
+                              </button>
+                            </form>
+                            
+                          <form action="{% url 'gadgetgateway:like_product' category.slug product.slug %}" method="GET">
+                            <input type="hidden" name="flag" id="flag" value=0>
+                            <button type="submit" class="btn btn-outline-info mr-2">
+                                <i class="fa fa-thumbs-down"></i> {{ product.dislikes }}
+                            </button>
+                          </form>
+                          </div>
                       </div>
+                    </div>
                   </div>
               </div>
 
               <hr>
               {% if user.is_authenticated %}
-                <div class="col-md-8 card mb-4  mt-3 ">
+                <div class="col-md-8 card mb-4 mt-3">
                   <div class="card-body">
                     <h2>{{ comments.count }} comments </h2>
             
@@ -45,7 +60,7 @@
                           {{ comment.created_on }}
                         </span>
                       </p>
-                      {{ comment.comment_body | linebreaks }}
+                      {{ comment.comment | linebreaks }}
                       {% if comment.recommended %}
                         <p><i class="fa fa-thumbs-up font-weight-normal"> </i>  This user recommends this product!</p>
                       {% else %}

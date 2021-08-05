@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import slugify
 from django.urls import reverse
@@ -206,11 +206,12 @@ def visitor_cookie_handler(request):
 
 
 def view_product(request, product_name_slug, category_name_slug):
-    context_dict = {}
 
     try:
         category = Category.objects.get(slug=category_name_slug)
         product = get_object_or_404(Product, slug=product_name_slug)
+        product.views += 1
+        product.save()
         comments = Comment.objects.filter(product=product, active=True)
         user = request.user
         new_comment = None
@@ -243,3 +244,20 @@ def view_product(request, product_name_slug, category_name_slug):
             "comment_form": comment_form,
             "user": user
         })
+
+
+def like_product(request, product_name_slug, category_name_slug):
+    if request.method == 'GET':
+        try:
+            flag = request.GET.get('flag')
+            selected_page = Product.objects.get(slug=product_name_slug) 
+        except Product.DoesNotExist:
+            return redirect(reverse('gadgetgateway:index'))
+
+        if int(flag):
+            selected_page.votes = selected_page.votes + 1 
+        else:
+            selected_page.dislikes = selected_page.dislikes + 1 
+        selected_page.save()
+        print(selected_page.votes)
+    return HttpResponseRedirect(request.path_info[:-5])
