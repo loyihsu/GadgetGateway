@@ -242,13 +242,14 @@ def view_product(request, product_name_slug, category_name_slug):
         can_like = True
         reaction_ed = ""
 
-        vote = all_votee.filter(voter=user)
-        if vote:
-            if vote.all()[0].positivity == True:
-                reaction_ed = 'liked'
-            else:
-                reaction_ed = 'disliked'
-            can_like = False
+        if user.is_authenticated:
+            vote = all_votee.filter(voter=user)
+            if vote:
+                if vote.all()[0].positivity == True:
+                    reaction_ed = 'liked'
+                else:
+                    reaction_ed = 'disliked'
+                can_like = False
 
         # Comment posted
         if request.method == 'POST':
