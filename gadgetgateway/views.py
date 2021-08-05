@@ -1,3 +1,4 @@
+import re
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -165,7 +166,7 @@ def user_login(request):
 
 @login_required
 def restricted(request):
-    return render(request, app_name + '/restricted.html')
+    return render(request, 'gadgetgateway/restricted.html')
 
 # Use the login_required() decorator to ensure only those logged in can
 # access the view.
@@ -203,3 +204,13 @@ def visitor_cookie_handler(request):
 
     # Update/set the visits cookie
     request.session['visits'] = visits
+
+def search(request):
+    results = []
+    
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
+            results = Product.objects.filter(name__icontains=query)
+
+    return render(request, 'gadgetgateway/search.html', {'results': results})
