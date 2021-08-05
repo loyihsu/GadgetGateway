@@ -208,17 +208,13 @@ def visitor_cookie_handler(request):
 def goto_url(request):
     if request.method == 'GET':
         product = request.GET.get('product')
-        print(product)
         try:
             selected_page = Product.objects.get(id=product) 
-            print(selected_page)
         except Product.DoesNotExist:
             return redirect(reverse('gadgetgateway:index'))
 
         selected_page.views = selected_page.views + 1 
         selected_page.save()
-        print(selected_page.votes)
-        print(selected_page.views)
         print(selected_page.url)
         return redirect(selected_page.url)
     return redirect(reverse('gadgetgateway:index'))

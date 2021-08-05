@@ -12,12 +12,12 @@ def populate():
          'description': 'The new MacBook Pro without a new design, featuring the first Apple Silicon chip.',
          'votes': 1000,
          'views': 2500,
-         'url': 'http://docs.python.org/3/tutorial/'},
+         'url': 'https://www.youtube.com/watch?v=QMoXON7k--c'},
         {'name': '2020 16-inch MacBook Pro',
          'description': 'The 16-inch MacBook Pro released in 2020. It is commonly mentioned as the last MacBook Pro with an Intel chip.',
          'votes': 600,
          'views': 1600,
-         'url': 'http://docs.python.org/3/tutorial/'}
+         'url': 'https://www.youtube.com/watch?v=e5nyQmaq4k4'}
     ]
 
     smartphone_products = [
@@ -25,7 +25,7 @@ def populate():
          'description': 'iPhone 12 mini is commonly named the smallest phone in 2020.',
          'votes': 1020,
          'views': 2000,
-         'url': 'http://docs.python.org/3/tutorial/'},
+         'url': 'category/<slug:name>/'},
         {'name': 'iPhone 12 Pro Max',
          'description': 'iPhone 12 Pro Max is the best phone Apple have made so far.',
          'votes': 1000,

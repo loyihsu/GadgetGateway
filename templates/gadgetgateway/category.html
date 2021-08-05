@@ -19,14 +19,18 @@
             <tr>
                 <th>Product Name</th>
                 <th>Description</th>
+                <th>Views</th>
                 <th>Votes</th>
             {% for product in products %}
             <tr>
                 <td>
-                {{ product }} 
+                <a href="{% url 'gadgetgateway:goto' %}?product={{ product.id }}">{{ product }}</a> 
                 </td>
                 <td>
                 {{ product.description }}
+                </td>
+                <td>
+                {{ product.views }}
                 </td>
                 <td>
                 {{ product.votes }}
@@ -45,7 +49,7 @@
         <strong> The specified category does not exist. </strong>
     {% endif %}
     </div>
-    {% if products %}
+    <!-- {% if products %}
     <ul>
         {% for product in products %}
         <li>
@@ -58,5 +62,5 @@
         </li>
         {% endfor %}
     </ul>
-    {% endif %}
+    {% endif %} -->
 {% endblock %}
