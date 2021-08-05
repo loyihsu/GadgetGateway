@@ -1,0 +1,40 @@
+{% extends 'gadgetgateway/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Search
+{% endblock %}
+
+{% block body_block%}
+<div class="container">
+    <h1>Search</h1>
+    <form class="form-inline" id="user-form" method="post" action="{% url 'gadgetgateway:search'%}">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" type="text" name="query" id="query" placeholder="Search Products..." />
+        </div>
+        <button class="btn btn-primary" type="submit" name="submit">Search</button>
+    </form>
+    {% if results %}
+        <table class="table">
+        <tr>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Votes</th>
+        {% for product in results %}
+        <tr>
+            <td>
+            {{ product }} 
+            </td>
+            <td>
+            {{ product.description }}
+            </td>
+            <td>
+            {{ product.votes }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

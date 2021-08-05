@@ -15,7 +15,15 @@ def populate():
         {'name': '2020 16-inch MacBook Pro',
          'description': 'The 16-inch MacBook Pro released in 2020. It is commonly mentioned as the last MacBook Pro with an Intel chip.',
          'votes': 600,
-         'views': 1600},
+         'views': 0},
+         {'name': '16-inch M1 MacBook Pro',
+         'description': 'The new MacBook Pro without a new design, featuring the first Apple Silicon chip.',
+         'votes': 1000,
+         'views': 0},
+        {'name': '2020 16-inch MacBook Pro',
+         'description': 'The 16-inch MacBook Pro released in 2020. It is commonly mentioned as the last MacBook Pro with an Intel chip.',
+         'votes': 600,
+         'views': 0},
     ]
 
     smartphone_products = [
@@ -51,7 +59,7 @@ def populate():
          'views': 0},
     ]
 
-    categories = {'Laptop': laptop_products, 'Smartphone': smartphone_products, 'Wearable': wearable_products, 'Headphone': headphone_products}
+    categories = {'Laptops': laptop_products, 'Smartphones': smartphone_products, 'Wearables': wearable_products, 'Headphones': headphone_products}
 
     for category, data in categories.items():
         cat = add_category(category)

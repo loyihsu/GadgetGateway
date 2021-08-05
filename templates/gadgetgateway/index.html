@@ -10,6 +10,62 @@
 {% endblock %}
 
 {% block body_block %}
+<div id="slider" class="carousel slide carousel-fade" data-ride="carousel">
+<ol class="carousel-indicators">
+    <li data-target="#slider" data-slide-to="0" class="active"></li>
+    <li data-target="#slider" data-slide-to="1"></li>
+    <li data-target="#slider" data-slide-to="2"></li>
+    <li data-target="#slider" data-slide-to="3"></li>
+</ol>
+    <div class="carousel-inner"> <!--A class to wrap other div for our slider.-->
+<!-- add data-interval="milliseconds" to the class carousel-item if anyone of you want the duration of the slides to be longer or shorter.-->
+        <div class="carousel-item active">
+            <div class="controller-image" style="background-image:url(/static/images/movingNews.gif);"></div>
+            <div class = "sliderContainer">
+                <h1>Lastest News today!</h1>
+                <p>We hereby provide you the most relevant and intresting technological news!</p>
+                <a href="news/" class="btn btn-lg btn-primary">Take me to the Gateway Portal!</a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="controller-image" style="background-image:url(/static/images/aboutus.jpg);"></div>
+            <div class = "sliderContainer">
+                <h1>View about our stories!</h1>
+                <p>Ways to contact us, know our team members, and what motivated us to startup this webpage!</p>
+                <a href="about/" class="btn btn-lg btn-primary"> I'm intrested! Warp me there! </a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="controller-image" style="background-image:url(/static/images/reserved.jpg);"></div>
+            <div class = "sliderContainer">
+                <h1>Reserved Slide</h1>
+                <p>RESERVED.</p>
+                <a href="#" class="btn btn-lg btn-primary">Into the Void!</a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <!-- <div class="controller-image" style="background-image:url(/static/images/reserved.jpg);"></div> -->
+            <div class="controller-image" style="background-image:url(/static/images/reserved.jpg);"></div>
+            <div class = "sliderContainer">
+                <h1>Reserved Slide</h1>
+                <p>RESERVED.</p>
+                <a href="#" class="btn btn-lg btn-primary">Into the Void!</a>
+            </div>
+        </div>
+    </div>
+    <a href="#slider" class="carousel-control-prev" role="button" data-slide="prev">
+        <span class="sr-only">Previous Arrow</span>
+        <span class="carousel-control-prev-icon"aria-hidden="true">
+        </span>
+    </a>
+    <a href="#slider" class="carousel-control-next" role="button" data-slide="next">
+        <span class="sr-only">Next Arrow</span>
+        <span class="carousel-control-next-icon"aria-hidden="true">
+        </span>
+    </a>
+</div>
+
+
 <div class="jumbotron text-center">
     <h1>GadgetGateway</h1>
     <div>

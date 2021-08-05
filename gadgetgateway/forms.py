@@ -19,7 +19,7 @@ class ProductForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the name of the product.")
     description = forms.CharField(max_length=100, help_text="A quick description of the product. (100 characters)")
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
-    
+    image = forms.ImageField() 
     votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     
     class Meta:
@@ -40,11 +40,8 @@ class UserProfileForm(forms.ModelForm):
         fields = ('picture',)
 
 class CommentForm(forms.ModelForm):
-    # This may or may not work, idk
-    recommended = forms.BooleanField(help_text="Do you recommend this product?", required=True)
-    text = forms.CharField(max_length=5000)
-    date = forms.DateField(widget=forms.HiddenInput())
+    recommended = forms.BooleanField(help_text="Do you recommend this product?", required=False)
     class Meta:
         model = Comment
-        fields = ('recommended', 'text')
+        fields = ('comment', 'recommended')
 

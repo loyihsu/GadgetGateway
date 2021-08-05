@@ -1,3 +1,43 @@
 .navbar-nav > li {
     padding: 0 15px;
 }
+
+/* settings for BS5. Reverted to BS4
+div.btn-group{ 
+    position: fixed;
+    right: 90px;
+}
+
+.form-inline{
+    position:fixed;
+    right:300px;
+} */
+
+.carousel-item{
+    height:32rem;
+    background:#255;
+    color:white;
+    position: relative;
+
+}
+
+.sliderContainer{
+    position:absolute;
+    bottom:0;
+    left:300px;
+    right:0;
+    padding-bottom:50px;
+
+}
+
+.controller-image{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    top:0;
+    background-position: bottom;
+    background-size:cover;
+    
+
+}

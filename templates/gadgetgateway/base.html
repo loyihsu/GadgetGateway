@@ -23,6 +23,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
         <link rel="stylesheet" href="{% static 'stylesheets/custom_bs4.css' %}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 
     <body>
@@ -47,10 +49,11 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <form class="form-inline" action=".">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                            <button class="btn btn-success" type="submit">Search</button>
-                        </form>
+                        <form class="form-inline" id="user-form" method="post" action="{% url 'gadgetgateway:search'%}">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" type="text" name="query" id="query" placeholder="Search Products..." />
+                        <button class="btn btn-primary" type="submit" name="submit">Search</button>
+                    </form>
                     </li>
                     {% if user.is_authenticated %}
                     <a type="button" class="btn btn-primary navbar-btn" href="{% url 'gadgetgateway:logout' %}">Logout</a>
