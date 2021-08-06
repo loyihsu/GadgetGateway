@@ -67,7 +67,7 @@ def populate():
             print(f'- {c}: {p}')
     
     # Generate random votes
-    Vote.objects.removeAll()
+    Vote.objects.all().delete()
     for p in Product.objects.all():
         for user in test_users:
             Vote.objects.get_or_create(voter=user, votee=p, positivity=random.choice([True, False]))
