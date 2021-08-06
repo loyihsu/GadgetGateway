@@ -14,6 +14,11 @@
     <div class="container">
     {% if category %}
         <h1>{{category.name}}</h1>
+        {% if user.is_authenticated %}
+                <div>
+                    <a  type="button" class="btn btn-outline-info" href="{% url 'gadgetgateway:add_product' category.slug %}" style="text-decoration:none">Add Product</a>
+                </div>
+            {% endif %}
         {% if products %}
             <div class="row py-5 text-center">
                 {% for product in page_obj.object_list %}
@@ -59,14 +64,7 @@
                 {% else %}
                 <strong>No product currently in category.</strong> <br/>
                 {% endif %}
-        
-                {% if user.is_authenticated %}
-                    <div>
-                        <a  type="button" class="btn btn-outline-info" href="{% url 'gadgetgateway:add_product' category.slug %}" style="text-decoration:none">Add Product</a>
-                    </div>
-                {% endif %}
             </div>
-            
     {% else %}
         <strong> The specified category does not exist. </strong>
     {% endif %}
