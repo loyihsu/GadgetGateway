@@ -12,32 +12,120 @@ About Rango
 {% block body_block %}
 <div class="container"> 
     <br />
-    <h1>About Us</h1>
-    <div>
-        <p>Visits: {{ visits }}</p>
-        
-        <p>  GadgetGateway is a social news and opinions website focusing on technology products. It features user posted threads about laptops, smartphones, wearables, headphones and gadgets. Threads are ranked based on popularity of views and upvotes, as vote by other registered members. Members can submit their own comments and reviews for each product as well as searching for what they looking for based on the implemented search engine. This gives the opportunity to the users to find the best products based on their interest, by reading reviews, comments and trends by people’s opinion.</p>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+        <div class="container"><a href="#" class="navbar-brand d-flex align-items-center"> <i class="fa fa-address-book fa-lg text-primary mr-2"></i><strong>GadgetGateway</strong></a>
+          <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+          <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            
+          </div>
+        </div>
+      </nav>
+      
+      <div class="bg-light">
+        <div class="container py-5">
+          <div class="row h-100 align-items-center py-5">
+            <div class="col-lg-6">
+              <h1 class="display-4">Our Mission</h1>
+              <p class="lead text-muted mb-0">GadgetGateway is a social news and opinions website focusing on technology products. It features user posted threads about laptops, smartphones, wearables, headphones and gadgets. Threads are ranked based on popularity of views and upvotes, as vote by other registered members. Members can submit their own comments and reviews for each product as well as searching for what they looking for based on the implemented search engine. This gives the opportunity to the users to find the best products based on their interest, by reading reviews, comments and trends by people’s opinion.</p>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834136/illus_kftyh4.png" alt="" class="img-fluid"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white py-5">
+        <div class="container py-5">
+          <div class="row align-items-center mb-5">
+            <div class="col-lg-6 order-2 order-lg-1"><i class="fa fa-mobile fa-2x mb-3 text-primary"></i>
+              <h2 class="font-weight-light">Contact Us</h2>
+              <p class="font-italic text-muted mb-4">If you'd like to contact us, please email us at <a href="mailto:gadgetgateway@gg.com">gadgetgateway@gg.com</a>
+              <p class="font-italic text-muted mb-4">Our headquarters are located in Glasgow, Scotland but the editorial staff works remotely around the world.</p>
 
-
-        <p>The site was created by Yu-Sung Hsu, Anamika Maurya, Jun Jie Low and Theodoros Vrakas in August 2021. It developed as a project of Internet Technology module for University of Glasgow, functioning as a real-world website based on the Django framework.</p>
-    </div>
-
-    <h2>Contact Us</h2>
-
-    <div>
-        <p>If you'd like to contact us, please email us at <a href="mailto:gadgetgateway@gg.com">gadgetgateway@gg.com</a></p>
-
-        <p>Our headquarters are located in Glasgow, Scotland but the editorial staff works remotely around the world.</p>
-
-        GadgetGateway.com <br /> 
-        Tall Tower For Successful Companies<br />
-        Cooperage Place 85<br />
-        Floor 13<br />
-   
-    </div>
-    <div>
-        <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
-        <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat" />
-    </div>
+              <p class="font-italic text-muted mb-4">GadgetGateway.com <br/>
+              Floor 13 <br/>
+              Cooperage Place 85 <br/>
+              Glasgow</p>
+            </div>
+            <div class="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834139/img-1_e25nvh.jpg" alt="" class="img-fluid mb-4 mb-lg-0"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-light py-5">
+        <div class="container py-5">
+          <div class="row mb-4">
+            <div class="col-lg-5">
+              <h2 class="display-4 font-weight-light">Our team</h2>
+            </div>
+          </div>
+      
+          <div class="row text-center">
+            <!-- Team item-->
+            <div class="col-xl-3 col-sm-6 mb-5">
+              <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834132/avatar-4_ozhrib.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Anamika Maurya</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+                <ul class="social mb-0 list-inline mt-3">
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- End-->
+      
+            <!-- Team item-->
+            <div class="col-xl-3 col-sm-6 mb-5">
+              <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834130/avatar-3_hzlize.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Jun Jie Low</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+                <ul class="social mb-0 list-inline mt-3">
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- End-->
+      
+            <!-- Team item-->
+            <div class="col-xl-3 col-sm-6 mb-5">
+              <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834133/avatar-2_f8dowd.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Theodoros Vrakas</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+                <ul class="social mb-0 list-inline mt-3">
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- End-->
+      
+            <!-- Team item-->
+            <div class="col-xl-3 col-sm-6 mb-5">
+              <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834133/avatar-1_s02nlg.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Yu-Sung Loyi Hsu</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+                <ul class="social mb-0 list-inline mt-3">
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                  <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- End-->
+      
+          </div>
+        </div>
+      </div>
+      
+      
+      <footer class="bg-light pb-5">
+        <div class="container text-center">
+          <p class="font-italic text-muted mb-0">&copy; Copyrights Company.com All rights reserved.</p>
+        </div>
+      </footer>
+      
 </div>
 {% endblock %}
