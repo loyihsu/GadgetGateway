@@ -130,7 +130,7 @@ def register(request):
             # update variable to indicate that the registration
             # was successsful
             registered = True
-            return render(request, 'gadgetgateway/login.html')
+            return redirect(reverse('gadgetgateway:login'))
 
         else:
             # Invalid forms? print errors to the terminal
