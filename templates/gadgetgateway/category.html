@@ -46,7 +46,6 @@
                 <!-- End-->
             {%  endfor %}
             
-        </div>
 
             {% if products.paginator.num_pages > 1 %}
                 {% if products.has_previous %}
@@ -73,4 +72,5 @@
         <strong> The specified category does not exist. </strong>
     {% endif %}
     </div>
+</div>
 {% endblock %}
