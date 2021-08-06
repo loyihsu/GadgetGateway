@@ -26,7 +26,7 @@
             <div class = "sliderContainer">
                 <h1>Lastest News today!</h1>
                 <p>We hereby provide you the most relevant and intresting technological news!</p>
-                <a href="{% url 'gadgetgateway:news' %}" class="btn btn-lg btn-primary">Take me to the Gateway Portal!</a>
+                <a href="news/" class="btn btn-lg btn-primary">Take me to the Gateway Portal!</a>
             </div>
         </div>
         <div class="carousel-item">
@@ -34,7 +34,7 @@
             <div class = "sliderContainer">
                 <h1>View about our stories!</h1>
                 <p>Ways to contact us, know our team members, and what motivated us to startup this webpage!</p>
-                <a href="{% url 'gadgetgateway:about' %}" class="btn btn-lg btn-primary"> I'm interested! Warp me there! </a>
+                <a href="about/" class="btn btn-lg btn-primary"> I'm interested! Warp me there! </a>
             </div>
         </div>
         <div class="carousel-item">
@@ -68,31 +68,19 @@
 </div>
 
 <div class="jumbotron text-center">
-    <div class="jumbotron">
-        <h1>GadgetGateway</h1>
-
-        <div>
-            {% if user.is_authenticated %}
-                <h4>Welcome, {{ user.username }}!</h4>
-            {% else %}
-                <h4>Welcome to GG!</h4>
-            {% endif %}
-            <br />
-        </div>
-    </div>
-</div>
 <div class="container">
     <div class="card-group">
       
-        <div class="card">
-        <div class="card-body">
+        <div class="card card-block d-flex">
             <div class="header">
-                <h2>Most Viewed Products</h2>
+                <br/><h2>Most Viewed Products</h2>
             </div>
+            
+        <div class="card-body align-items-center d-flex justify-content-center">
             {% if most_viewed %}
                 <ul>
                     {% for item in most_viewed %}
-                        <table>                               
+                        <table class="table table-hover">                               
                             <tr>
                                 <td> 🔥 <a href="{%  url 'gadgetgateway:view_product' item.category.slug item.slug %}">{{ item }}</a></td>
                                 <td> {{ item.views }} views</td>
@@ -105,15 +93,16 @@
             {% endif %} 
         </div>
     </div>
-      <div class="card">
-            <div class="card-body">
+      <div class="card card-block d-flex">
                 <div class="header">
-                    <h2>Most Satisfied Products</h2>
+                    <br/><h2>Most Satisfied Products</h2>
                 </div>
+                
+            <div class="card-body align-items-center d-flex justify-content-center">
                 {% if most_liked %}
                     <ul>
                         {% for item in most_liked %}
-                            <table>                               
+                            <table class="table table-hover">                               
                                 <tr>
                                     <td> 💙 <a href="{%  url 'gadgetgateway:view_product' item.category.slug item.slug %}">{{ item }}</a></td>
                                     <td> 🙋‍♂️ {{ item.get_satisfactory_rate }} 🙆‍♀️</td>
@@ -127,4 +116,6 @@
             </div>
         </div>
     </div>
+    
+</div>
 {% endblock %}
