@@ -14,52 +14,57 @@
     <div class="container">
     {% if category %}
         <h1>{{category.name}}</h1>
+        {% if user.is_authenticated %}
+                <div>
+                    <a  type="button" class="btn btn-outline-info" href="{% url 'gadgetgateway:add_product' category.slug %}" style="text-decoration:none">Add Product</a>
+                </div>
+            {% endif %}
         {% if products %}
-            <div class="row">
+            <div class="row py-5 text-center">
                 {% for product in page_obj.object_list %}
-                <div class="card col-4">
+                <!-- Product List -->
+                <div class="col-xl-4 col-sm-6 mb-5">
+                    <div class="bg-white rounded shadow-sm py-5 px-4">
                     <img class="card-img-top" src= "{{ MEDIA_URL }}{{ product.image }}" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">{{ product }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <div>
-                        <small><i class="fa fa-eye"></i></button> {{ product.views }} &middot; </small>
-                        {% if product.get_satisfactory_rate >= 0 %}
-                        <small style="color: #17a2b8;"><i class="fa fa-thumbs-up"></i> {{ product.get_satisfactory_rate }}</small>
-                        {% else %}
-                        <small style="color: #dc3545;"><i class="fa fa-thumbs-down"></i> {{ product.get_satisfactory_rate }}</small>
-                        {% endif %}
-                        </div>
+                        <h5 class="mb-0">{{ product }}</h5>
+                        <span class="small text-muted">{{ product.description }}</span>
+
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item">
+                                <i class="fa fa-eye"></i></button> {{ product.views }} &middot;
+                            
+                                {% if product.get_satisfactory_rate >= 0 %}
+                                <medium style="color: #17a2b8;"><i class="fa fa-thumbs-up"></i> {{ product.get_satisfactory_rate }}</medium>
+                                {% else %}
+                                <medium style="color: #dc3545;"><i class="fa fa-thumbs-down"></i> {{ product.get_satisfactory_rate }}</medium>
+                                {% endif %}
+                            </li>
+                        </ul>
                         <div style="margin: 15px 0px;">
-                            <a type="button" class="btn btn-info mr-1" href="{%  url 'gadgetgateway:view_product' category.slug product.slug %}">View</a>
+                        <a type="button" class="btn btn-info mr-1" href="{%  url 'gadgetgateway:view_product' category.slug product.slug %}">View</a>
                         </div>
+                    </div>
                     </div>
                 </div>
                 {%  endfor %}
-            </div>
-            <br/>
-            <div>
-            {% if products.paginator.num_pages > 1 %}
-                {% if products.has_previous %}
-                    <a href="?page={{ products.previous_page_number }}">Previous</a>
+                <div>
+                    {% if products.paginator.num_pages > 1 %}
+                        {% if products.has_previous %}
+                            <a href="?page={{ products.previous_page_number }}">Previous</a>
+                        {% endif %}
+                        <span>Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
+        
+                        {% if products.has_next %}
+                            <a href="?page={{ products.next_page_number }}">Next</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <br />
+                {% else %}
+                <strong>No product currently in category.</strong> <br/>
                 {% endif %}
-                <span>Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
-
-                {% if products.has_next %}
-                    <a href="?page={{ products.next_page_number }}">Next</a>
-                {% endif %}
-            {% endif %}
-        </div>
-        <br />
-        {% else %}
-        <strong>No product currently in category.</strong> <br/>
-        {% endif %}
-
-        {% if user.is_authenticated %}
-            <div>
-                <a  type="button" class="btn btn-outline-info" href="{% url 'gadgetgateway:add_product' category.slug %}" style="text-decoration:none">Add Product</a>
             </div>
-        {% endif %}
     {% else %}
         <strong> The specified category does not exist. </strong>
     {% endif %}

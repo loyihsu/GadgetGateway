@@ -66,33 +66,19 @@
         </span>
     </a>
 </div>
-
 <div class="jumbotron text-center">
-    <div class="jumbotron">
-        <h1>GadgetGateway</h1>
-
-        <div>
-            {% if user.is_authenticated %}
-                <h4>Welcome, {{ user.username }}!</h4>
-            {% else %}
-                <h4>Welcome to GG!</h4>
-            {% endif %}
-            <br />
-        </div>
-    </div>
-</div>
 <div class="container">
     <div class="card-group">
       
-        <div class="card">
-        <div class="card-body">
+        <div class="card card-block d-flex">
             <div class="header">
-                <h2>Most Viewed Products</h2>
+                <br/><h2>Most Viewed Products</h2>
             </div>
+            <div class="card-body align-items-center d-flex justify-content-center">
             {% if most_viewed %}
                 <ul>
                     {% for item in most_viewed %}
-                        <table>                               
+                        <table class="table table-hover">                               
                             <tr>
                                 <td> 🔥 <a href="{%  url 'gadgetgateway:view_product' item.category.slug item.slug %}">{{ item }}</a></td>
                                 <td> {{ item.views }} views</td>
@@ -104,16 +90,17 @@
                 <strong>There are no most_viewed products (yay)</strong> 
             {% endif %} 
         </div>
-    </div>
-      <div class="card">
-            <div class="card-body">
+        </div>
+
+            <div class="card card-block d-flex">
                 <div class="header">
-                    <h2>Most Satisfied Products</h2>
+                    <br/><h2>Most Satisfied Products</h2>
                 </div>
+                <div class="card-body align-items-center d-flex justify-content-center">
                 {% if most_liked %}
                     <ul>
                         {% for item in most_liked %}
-                            <table>                               
+                            <table class="table table-hover">                               
                                 <tr>
                                     <td> 💙 <a href="{%  url 'gadgetgateway:view_product' item.category.slug item.slug %}">{{ item }}</a></td>
                                     <td> 🙋‍♂️ {{ item.get_satisfactory_rate }} 🙆‍♀️</td>
@@ -125,6 +112,8 @@
                     <strong>There are no most liked products (sniff sniff)</strong> 
                 {% endif %}
             </div>
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}
