@@ -18,12 +18,12 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" name="username" value="" size="50" />
+                <input type="text" name="username" value="" maxlength="20" />
                 
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" value="" size="50" />
+                <input type="password" name="password" value="" maxlength="20" />
             </div>
             <input class="btn btn-success" type="submit" value="Login" /><br/><br/>
             <div class="SocialLoginText">
