@@ -48,7 +48,68 @@ div.btn-group{
     font-family:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-style: italic;
 }
-
+/* 
 .container1{
-    background-color: azure;
+    margin: auto;
+    position:absolute;
+    width: 30%;
+    top: 50%;
+    border: 5px solid #00FFFF;
+    padding: 30px;
+} */
+
+.container1 {
+    background: #CCCCCC;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-image: url("triangles-login.png");
 }
+
+.container2 {
+background: #FFFFFF;
+position: absolute;
+padding: 50px;
+top: 380px;
+left: 850px;
+width: 30%;
+transform: translate(-50%, -50%);
+margin-top: auto;
+margin-bottom: auto;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.Header1Login h1{
+    color:white
+}
+.form-group label{
+    color:white
+}
+
+.SocialLoginText{
+    color:white
+}
+
+
+
+
+.social_icon span{
+    font-size: 60px;
+    margin-left: 10px;
+    color: #FFC312;
+    }
+    
+    .social_icon span:hover{
+    color: white;
+    cursor: pointer;
+    }
+    
+    .card-header h3{
+    color: white;
+    }
+    
+    .social_icon{
+    position: absolute;
+    right: 20px;
+    top: -45px;
+    }
