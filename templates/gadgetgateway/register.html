@@ -8,10 +8,13 @@
 
 {% block body_block %}
 {% load crispy_forms_tags %} 
-    <div class="container">
+    <div class="registercontainer1">
+        <div class="registercontainer2">
+        <div class="registerHeader">
         <h1>Register for GadgetGateway</h1> <br/>
+        </div>
         {% if registered %}
-            Rango says: <strong>Thank you for registering!</strong>
+            <strong>Thank you for registering!</strong>
             <a href="{% url 'gadgetgateway:index' %}">Return to the homepage.</a><br />
         {% else %}
             <form id="user_form" method="post" action="{% url 'gadgetgateway:register' %}"
@@ -27,4 +30,5 @@
             </form>
         {% endif %}
     </div>
+</div>
 {% endblock %}

@@ -63,20 +63,20 @@ div.btn-group{
     height: 100%;
     width: 100%;
     position: absolute;
-    background-image: url("triangles-login.png");
+    background-image: url("stylesheetImage/triangles-login.png");
 }
 
 .container2 {
-background: #FFFFFF;
-position: absolute;
-padding: 50px;
-top: 380px;
-left: 850px;
-width: 30%;
-transform: translate(-50%, -50%);
-margin-top: auto;
-margin-bottom: auto;
-background-color: rgba(0,0,0,0.5) !important;
+    background: #FFFFFF;
+    position: absolute;
+    padding: 50px;
+    top: 380px;
+    left: 850px;
+    width: 30%;
+    transform: translate(-50%, -50%);
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: rgba(0,0,0,0.5) !important;
 }
 
 .Header1Login h1{
@@ -100,13 +100,39 @@ background-color: rgba(0,0,0,0.5) !important;
 }
     
 .social_icon span:hover{
-color: white;
-cursor: pointer;
+    color: white;
+    cursor: pointer;
 }
 
     
 .social_icon{
-position: absolute;
-right: 20px;
-top: -45px;
+    position: absolute;
+    right: 20px;
+    top: -45px;
+}
+
+
+.registercontainer1{
+    background: #CCCCCC;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-image: url("stylesheetImage/triangles-login.png");
+}
+
+.registercontainer2{
+    background: #FFFFFF;
+    position: absolute;
+    padding: 50px;
+    top: 380px;
+    left: 850px;
+    width: 30%;
+    transform: translate(-50%, -50%);
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
+.registerHeader{
+    color:white;
 }
