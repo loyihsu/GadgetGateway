@@ -15,8 +15,9 @@
     {% if category %}
         <h1>{{category.name}}</h1>
         {% if products %}
+        
+        <div class="row py-5 text-center">
             {% for product in page_obj.object_list %}
-                <div class="row py-5 text-center">
                 <!-- Product List -->
                 <div class="col-xl-4 col-sm-6 mb-5">
                   <div class="bg-white rounded shadow-sm py-5 px-4">
@@ -43,8 +44,9 @@
                   </div>
                 </div>
                 <!-- End-->
-            </div>
             {%  endfor %}
+            
+        </div>
 
             {% if products.paginator.num_pages > 1 %}
                 {% if products.has_previous %}
