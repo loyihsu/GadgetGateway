@@ -4,8 +4,10 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project.setti
 import django
 django.setup()
 
-from gadgetgateway.models import Category, Product, News
+from gadgetgateway.models import Category, Product, News, Vote
+from django.contrib.auth.models import User
 from datetime import datetime
+import random
 
 def populate():
     laptop_products = [
@@ -52,6 +54,8 @@ def populate():
 
     categories = {'Laptops': laptop_products, 'Smartphones': smartphone_products, 'Wearables': wearable_products, 'Headphones': headphone_products}
 
+    test_users = create_test_users(number=100)
+
     for category, data in categories.items():
         cat = add_category(category)
         for product in data:
@@ -61,6 +65,12 @@ def populate():
     for c in Category.objects.all():
         for p in Product.objects.filter(category=c):
             print(f'- {c}: {p}')
+    
+    # Generate random votes
+    Vote.objects.removeAll()
+    for p in Product.objects.all():
+        for user in test_users:
+            Vote.objects.get_or_create(voter=user, votee=p, positivity=random.choice([True, False]))
 
     # Add news items
     newsroom = [{'title': 'GadgetGateway is launched!', 'content': 'This website is already launched! Yay!'}]
@@ -73,7 +83,6 @@ def populate():
     
 def add_category(name):
     temp = Category.objects.get_or_create(name=name)[0]
-    temp.save()
     return temp
 
 def add_product(name, description, category, views=0):
@@ -89,6 +98,15 @@ def add_news(title, content, date=datetime.now()):
     temp.date = date
     temp.save()
     return temp
+
+def create_test_users(number: int):
+    output: list(User) = []
+    for idx in range(number):
+        username = 'tester'+str(idx+1)
+        user = User.objects.get_or_create(username=username, email=username+'@example.com', password='00000000')[0]
+        output.append(user)
+    return output
+
 
 # Start execution here!
 if __name__ == '__main__':
