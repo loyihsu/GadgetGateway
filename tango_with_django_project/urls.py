@@ -27,4 +27,6 @@ urlpatterns = [
     path('gadget-gateway/', include('gadgetgateway.urls')),
     # The above maps any URLs starting with gadgetgateway/ to be handled by gadgetgateway.
     path('admin/', admin.site.urls),
+    path('gadget-gateway/accounts/', include('allauth.urls')), #this is to direct it to google authentication. Please dont change this. Else, i will need to modify the google authenticate url from my account. -jj
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

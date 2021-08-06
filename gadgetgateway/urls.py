@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from gadgetgateway import views
+from allauth.account.views import LoginView, SignupView 
 
 app_name = 'gadgetgateway'
 
