@@ -11,14 +11,14 @@ import random
 
 def populate():
     laptop_products = [
-        {'name': '13-inch M1 MacBook Pro (2020)',
+        {'name': 'Apple MacBook Pro 13inch  M1 (2020)',
          'description': 'The new MacBook Pro without a new design, featuring the first Apple Silicon chip.',
          'views': 2520,
          'image': 'MBP13M1.webp'},
-        {'name': '2020 16-inch MacBook Pro (2020)',
+        {'name': 'Apple MacBook Pro 16inch (2020)',
          'description': 'The 16-inch MacBook Pro released in 2020. It is commonly mentioned as the last MacBook Pro with an Intel chip.',
          'views': 2880,
-         'image': 'MBP16.jpg'},
+         'image': 'MBP161.jpg'},
         {'name': 'Apple MacBook Air M1 (2020)',
          'description': 'The new Apple MacBook Air (M1, 2020) is not just the best laptop Apple has ever made, it is the best laptop money can buy right now.',
          'views': 5125,
@@ -42,7 +42,7 @@ def populate():
          {'name': 'Asus ZenBook Duo (2020)',
          'description': 'One of the best laptop concepts implementing dual screen for better producitity.',
          'views': 4336,
-         'image': 'ZenBook.webp'}
+         'image': 'ZenBook.jpg'}
     ]
 
     smartphone_products = [
@@ -77,7 +77,7 @@ def populate():
         {'name': 'Xiaomi Mi 11',
          'description': 'Mi 11 is a flagship-killing powerhouse. If the price of the latest and greatest flagships have you quaking in your boots, then the Xiaomi Mi 11 is the perfect alternative for the cost-savvy.',
          'views': 1411,
-         'image': 'Mi11.webp'},
+         'image': 'Mi11.jpg'},
          {'name': 'OnePlus Nord CE',
          'description': 'It is not as feature-rich as the OnePlus 9 Pro, but for less than half the price, the OnePlus Nord CE is astonishing value for money',
          'views': 1255,
@@ -123,7 +123,7 @@ def populate():
          {'name': 'Sony WH-1000XM4',
          'description': 'The Sony WH-1000XM4 headphones have it all. A lightweight design, comfort, the convenience of Bluetooth and arguably the best noise-cancelling currently on the market.',
          'views': 312,
-         'image': 'SonyWH.webpp'},
+         'image': 'SonyWH.webp'},
         {'name': 'AKG Y400',
          'description': 'A fantastic addition to the world of wireless headphones.',
          'views': 81,
