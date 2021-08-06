@@ -18,21 +18,22 @@
             <div class="row">
                 {% for product in page_obj.object_list %}
                 <div class="card col-4">
-                    <a href="{%  url 'gadgetgateway:view_product' category.slug product.slug %}"  style="text-decoration:none">
-                        <img class="card-img-top" src= "{{ MEDIA_URL}}{{ product.image }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product }}</h5>
-                            <p class="card-text">{{ product.description }}</p>
-                            <button type="button" class="btn btn-outline-info mr-1">View/Add Review</button>
-                            <button type="button" class="btn btn-outline-info mr-1">{{ product.views }} <i class="fa fa-eye"></i></button>
-                            {% if product.get_satisfactory_rate >= 0 %}
-                            <button type="button" class="btn btn-outline-info mr-1"><i class="fa fa-thumbs-up"></i> {{ product.get_satisfactory_rate }}</button>
-                            {% else %}
-                            <button type="button" class="btn btn-outline-danger mr-1"><i class="fa fa-thumbs-down"></i> {{ product.get_satisfactory_rate }}</button>
-                            {% endif %}
-
+                    <img class="card-img-top" src= "{{ MEDIA_URL }}{{ product.image }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <div>
+                        <small><i class="fa fa-eye"></i></button> {{ product.views }} &middot; </small>
+                        {% if product.get_satisfactory_rate >= 0 %}
+                        <small style="color: #17a2b8;"><i class="fa fa-thumbs-up"></i> {{ product.get_satisfactory_rate }}</small>
+                        {% else %}
+                        <small style="color: #dc3545;"><i class="fa fa-thumbs-down"></i> {{ product.get_satisfactory_rate }}</small>
+                        {% endif %}
                         </div>
-                    </a>
+                        <div style="margin: 15px 0px;">
+                            <a type="button" class="btn btn-info mr-1" href="{%  url 'gadgetgateway:view_product' category.slug product.slug %}">View</a>
+                        </div>
+                    </div>
                 </div>
                 {%  endfor %}
             </div>
