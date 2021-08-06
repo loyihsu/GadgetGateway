@@ -1,24 +1,27 @@
 {% extends 'gadgetgateway/base.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block title_block %}
     Register
 {% endblock %}
 
 {% block body_block %}
+{% load crispy_forms_tags %} 
     <div class="container">
-        <h1>Register for GadgetGateway</h1>
+        <h1>Register for GadgetGateway</h1> <br/>
         {% if registered %}
-            Rango says: <strong>thank you for registering!</strong>
+            Rango says: <strong>Thank you for registering!</strong>
             <a href="{% url 'gadgetgateway:index' %}">Return to the homepage.</a><br />
         {% else %}
-            Rango says: <strong>register here!</strong><br />
             <form id="user_form" method="post" action="{% url 'gadgetgateway:register' %}"
                 enctype="multipart/form-data">
 
                 {% csrf_token %}
-                {{ user_form.as_p }}
-                {{ profile_form.as_p }}
+                {{user_form.username | as_crispy_field}}
+                {{user_form.email | as_crispy_field}}
+                {{user_form.password | as_crispy_field}}
+                {{user_form.password | as_crispy_field}}
 
                 <input class="btn btn-success" type="submit" name="submit" value="Register" />
             </form>
