@@ -1,24 +1,24 @@
 {% extends 'gadgetgateway/base.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block title_block %}
-Add a Product
+    Add a Product
 {% endblock %}
 
 {% block body_block %}
-<div>
-    <h1>Add a Product</h1>
-    <form id="category_form" enctype="multipart/form-data" method="post" action="{% url 'gadgetgateway:add_product' category.slug %}">
-        {% csrf_token %}
-        {% for hidden in form.hidden_fields  %}
-            {{ hidden }}
-        {% endfor %}
-        {% for field in form.visible_fields %}
-            {{ field.errors }} <br />
-            {{ field.help_text }} 
-            {{ field }}
-        {% endfor %}
-        <input type="submit" name="submit" value="Create Product" />
-    </form>
-</div>
+    <div  class="container">
+        <h1>Add a Product</h1>
+        <form id="category_form" enctype="multipart/form-data" method="post" action="{% url 'gadgetgateway:add_product' category.slug %}">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields  %}
+                {{ hidden | as_crispy_field }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }} <br />
+                {{ field | as_crispy_field}}
+            {% endfor %}
+            <input type="submit" name="submit" value="Create Product" />
+        </form>
+    </div>
 {% endblock %}

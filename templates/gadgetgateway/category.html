@@ -15,30 +15,37 @@
     {% if category %}
         <h1>{{category.name}}</h1>
         {% if products %}
-            <div class="row">
-                {% for product in page_obj.object_list %}
-                <div class="card col-4">
-                    <img class="card-img-top" src= "{{ MEDIA_URL }}{{ product.image }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <div>
-                        <small><i class="fa fa-eye"></i></button> {{ product.views }} &middot; </small>
+            {% for product in page_obj.object_list %}
+                <div class="row py-5 text-center">
+                <!-- Product List -->
+                <div class="col-xl-4 col-sm-6 mb-5">
+                  <div class="bg-white rounded shadow-sm py-5 px-4">
+
+                    <a href="{%  url 'gadgetgateway:view_product' category.slug product.slug %}"  style="text-decoration:none">
+                        <img class="card-img-top" src= "{{ MEDIA_URL}}{{ product.image }}" alt="Card image cap"></a>
+                        
+                    <h5 class="mb-0">{{ product }}</h5>
+                    <span class="small text-muted">{{ product.description }}</span>
+
+                    <ul class="social mb-0 list-inline mt-3">
+                      <li class="list-inline-item"><button type="button" class="btn btn-sm btn-outline-info mr-1">View/Add Review</button></li>
+                      <li class="list-inline-item">
+                        <button type="button" class="btn btn-sm btn-outline-info mr-1">{{ product.views }} <i class="fa fa-eye"></i></button>
+                      </li>
+                      <li class="list-inline-item">
                         {% if product.get_satisfactory_rate >= 0 %}
-                        <small style="color: #17a2b8;"><i class="fa fa-thumbs-up"></i> {{ product.get_satisfactory_rate }}</small>
+                        <button type="button" class="btn btn-sm btn-outline-info mr-1"><i class="fa fa-thumbs-up"></i> {{ product.get_satisfactory_rate }}</button>
                         {% else %}
-                        <small style="color: #dc3545;"><i class="fa fa-thumbs-down"></i> {{ product.get_satisfactory_rate }}</small>
+                        <button type="button" class="btn btn-sm btn-outline-danger mr-1"><i class="fa fa-thumbs-down"></i> {{ product.get_satisfactory_rate }}</button>
                         {% endif %}
-                        </div>
-                        <div style="margin: 15px 0px;">
-                            <a type="button" class="btn btn-info mr-1" href="{%  url 'gadgetgateway:view_product' category.slug product.slug %}">View</a>
-                        </div>
-                    </div>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                {%  endfor %}
+                <!-- End-->
             </div>
-            <br/>
-            <div>
+            {%  endfor %}
+
             {% if products.paginator.num_pages > 1 %}
                 {% if products.has_previous %}
                     <a href="?page={{ products.previous_page_number }}">Previous</a>
@@ -49,16 +56,16 @@
                     <a href="?page={{ products.next_page_number }}">Next</a>
                 {% endif %}
             {% endif %}
-        </div>
-        <br />
+
         {% else %}
         <strong>No product currently in category.</strong> <br/>
         {% endif %}
 
         {% if user.is_authenticated %}
             <div>
-                <a  type="button" class="btn btn-outline-info" href="{% url 'gadgetgateway:add_product' category.slug %}" style="text-decoration:none">Add Product</a>
-            </div>
+                <button type="button" class="btn btn-outline-info">
+                    <a href="{% url 'gadgetgateway:add_product' category.slug %}" style="text-decoration:none">Add Product</a> </div>
+                </button>
         {% endif %}
     {% else %}
         <strong> The specified category does not exist. </strong>

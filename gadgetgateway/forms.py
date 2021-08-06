@@ -23,7 +23,7 @@ class ProductForm(forms.ModelForm):
     
     class Meta:
         model = Product
-        exclude = ('category',)
+        exclude = ('category', 'views')
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
