@@ -16,26 +16,34 @@
         <button class="btn btn-primary" type="submit" name="submit">Search</button>
     </form>
     {% if results %}
-    <div class="row">
+    <div class="row py-5 text-center">
         {% for product in results %}
-        <div class="card col-4">
-                    <img class="card-img-top" src= "{{ MEDIA_URL}}{{ product.image }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <div>
-                        <small><i class="fa fa-eye"></i></button> {{ product.views }} &middot; </small>
+        <!-- Product List -->
+        <div class="col-xl-4 col-sm-6 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-4">
+            <img class="card-img-top" src= "{{ MEDIA_URL }}{{ product.image }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="mb-0">{{ product }}</h5>
+                <span class="small text-muted">{{ product.description }}</span>
+
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item">
+                        <i class="fa fa-eye"></i></button> {{ product.views }} &middot;
+                    
                         {% if product.get_satisfactory_rate >= 0 %}
-                        <small style="color: #17a2b8;"><i class="fa fa-thumbs-up"></i> {{ product.get_satisfactory_rate }}</small>
+                        <medium style="color: #17a2b8;"><i class="fa fa-thumbs-up"></i> {{ product.get_satisfactory_rate }}</medium>
                         {% else %}
-                        <small style="color: #dc3545;"><i class="fa fa-thumbs-down"></i> {{ product.get_satisfactory_rate }}</small>
+                        <medium style="color: #dc3545;"><i class="fa fa-thumbs-down"></i> {{ product.get_satisfactory_rate }}</medium>
                         {% endif %}
-                        </div>
-                        <div style="margin: 15px 0px;">
-                            <a type="button" class="btn btn-info mr-1" href="{%  url 'gadgetgateway:view_product' product.category.slug product.slug %}">View</a>
-                        </div>
-                    </div>
+                    </li>
+                </ul>
+                
+                <div style="margin: 15px 0px;">
+                    <a type="button" class="btn btn-info mr-1" href="{%  url 'gadgetgateway:view_product' product.category.slug product.slug %}">View</a>
                 </div>
+            </div>
+            </div>
+        </div>
         {% endfor %}
     </div>
     {% endif %}
