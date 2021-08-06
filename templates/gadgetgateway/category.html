@@ -56,9 +56,8 @@
 
         {% if user.is_authenticated %}
             <div>
-                <button type="button" class="btn btn-outline-info">
-                    <a href="{% url 'gadgetgateway:add_product' category.slug %}" style="text-decoration:none">Add Product</a> </div>
-                </button>
+                <a  type="button" class="btn btn-outline-info" href="{% url 'gadgetgateway:add_product' category.slug %}" style="text-decoration:none">Add Product</a>
+            </div>
         {% endif %}
     {% else %}
         <strong> The specified category does not exist. </strong>
