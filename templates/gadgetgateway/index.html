@@ -65,45 +65,37 @@
     </a>
 </div>
 
-
 <div class="jumbotron text-center">
-    <h1>GadgetGateway</h1>
-    <div>
-        {% if user.is_authenticated %}
-            Welcome, {{ user.username }}!
-        {% else %}
-            Welcome to GadgetGateway!
-        {% endif %}
-        <br />
+    <div class="jumbotron">
+        <h1>GadgetGateway</h1>
+
+        <div>
+            {% if user.is_authenticated %}
+                <h4>Welcome, {{ user.username }}!</h4>
+            {% else %}
+                <h4>Welcome to GadgetGateway!</h4>
+            {% endif %}
+            <br />
+        </div>
     </div>
 </div>
 <div class="container">
     <div class="card-group">
-        <div class="card">
-            <div class="card-body">
-                <h2>Most Satisfied Products</h2>
-                {% if most_liked %}
-                    <ul>
-                        {% for item in most_liked %}
-                            <li>
-                                {{ item.name }} (Satisfied: {{ item.get_satisfactory_rate }})
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <strong>There are no most liked products (sniff sniff)</strong> 
-                {% endif %}
-            </div>
-        </div>
+      
         <div class="card">
         <div class="card-body">
-            <h2>Most Viewed Products</h2>
+            <div class="header">
+                <h2>Most Viewed Products</h2>
+            </div>
             {% if most_viewed %}
                 <ul>
                     {% for item in most_viewed %}
-                        <li>
-                            {{ item.name }} (Views: {{ item.views }})
-                        </li>
+                        <table>                               
+                            <tr>
+                                <td> 🔥 <a href="{%  url 'gadgetgateway:view_product' item.category.slug item.slug %}">{{ item }}</a></td>
+                                <td> {{ item.views }} views</td>
+                            </tr>
+                        </table> 
                     {% endfor %}
                 </ul>
             {% else %}
@@ -111,5 +103,108 @@
             {% endif %} 
         </div>
     </div>
-</div>
+      <div class="card">
+            <div class="card-body">
+                <div class="header">
+                    <h2>Most Satisfied Products</h2>
+                </div>
+                {% if most_liked %}
+                    <ul>
+                        {% for item in most_liked %}
+                            <table>                               
+                                <tr>
+                                    <td> 💙 <a href="{%  url 'gadgetgateway:view_product' item.category.slug item.slug %}">{{ item }}</a></td>
+                                    <td> 🙋‍♂️ {{ item.get_satisfactory_rate }} 🙆‍♀️</td>
+                                </tr>
+                            </table> 
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no most liked products (sniff sniff)</strong> 
+                {% endif %}
+            </div>
+        </div>
+    </div>
+<!-- CSS -->
+<style>
+
+       body {
+        background-color: #363c41;
+    }
+
+    table {
+        table-layout: auto;
+        width: 450px; 
+        margin: 5px 0;
+        font-size: 18px;
+        font-family: sans-serif;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        color: #363c41;
+        text-align: left;
+
+    }
+
+    thead tr th:first-child,
+    tbody tr td:first-child {
+        width: 8em;
+        min-width: 18em;
+        max-width: 18em;
+        word-break: break-all;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+    .header {
+      padding: 1px;
+      text-align: center;
+      /*background: #1abc9c;*/
+      color: #363c41;
+      font-size: 18px;
+    }
+    .card {
+      background: #dddddd;
+    }
+    .card-group {
+      background: #363c41;
+    }
+    .jumbotron{ 
+
+      padding: 10px;
+      background: #dddddd;
+    }
+    /*buttons*/
+    .btn-xl {
+            padding: 1rem 2rem
+        }
+        .btn-primary{
+            background-color: #3f89bd;
+            border-color: #3f89bd;
+        }
+        .btn-primary:hover {
+            background-color: #007ff4;
+            border-color: #007ff4;
+            color: #fff;
+        }
+        .btn-primary:active,
+        .btn-primary:focus {
+            color: #fff;
+            background-color: #D5A021 !important;
+            border-color: #D5A021 !important;
+            box-shadow: 0 0 0 0.2rem rgba(213,160,33, 0.5) !important;
+        }
+
+/* Link inside the table*/
+table a {
+      color: #3f89bd;
+}
+
+table a:hover {
+  color: #007ff4;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.16);
+}
+ 
+</style>
+
 {% endblock %}
