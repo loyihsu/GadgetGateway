@@ -6,9 +6,14 @@
     Login
 {% endblock %}
 
+
 {% block body_block %}
-    <div class="container">
-        <h1>Login to GadgetGateway</h1>
+
+    <div class="container1 py-5 mb-5">
+        <div class="container2 py-2 mb-2">
+            <div class="Header1Login">
+                <h1>Login to GadgetGateway</h1>
+            </div>
         <form id="login_form" method="post" action="{% url 'gadgetgateway:login' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -21,11 +26,18 @@
                 <input type="password" name="password" value="" size="50" />
             </div>
             <input class="btn btn-success" type="submit" value="Login" /><br/><br/>
-            
-            <p>Alternatively,</p>
-            <label for="GoogleLogin">Login with your social account!</label>
-            <a href="{% provider_login_url 'google' %}" class="btn btn btn-danger btn-lg btn-block" role="button" aria-pressed="true">Sign in with Google</a>
+            <div class="SocialLoginText">
+            <!-- <p>Alternatively,</p>
+            <label for="GoogleLogin">Login with your social account!</label> -->
+            <!-- <a href="{% provider_login_url 'google' %}" class="btn btn btn-danger btn-lg btn-block" role="button" aria-pressed="true">Sign in with Google</a> -->
             <!-- {% include "socialaccount/snippets/provider_list.html" with process="login" %} -->
+            <div class="d-flex justify-content-end social_icon">
+                <a href="{% provider_login_url 'google' %}"><span><i class="fa fa-google-plus-square"></i></span></a>
+                
+            </div>
+        </div>
+            </div>
         </form>
     </div>
+    <div>
 {% endblock %}
