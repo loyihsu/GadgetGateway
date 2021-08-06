@@ -10,6 +10,8 @@
 {% endblock %}
 
 {% block body_block %}
+<link rel="stylesheet" href="{% static 'stylesheets/homepage.css' %}">
+
 <div id="slider" class="carousel slide carousel-fade" data-ride="carousel">
 <ol class="carousel-indicators">
     <li data-target="#slider" data-slide-to="0" class="active"></li>
@@ -65,45 +67,37 @@
     </a>
 </div>
 
-
 <div class="jumbotron text-center">
-    <h1>GadgetGateway</h1>
-    <div>
-        {% if user.is_authenticated %}
-            Welcome, {{ user.username }}!
-        {% else %}
-            Welcome to GadgetGateway!
-        {% endif %}
-        <br />
+    <div class="jumbotron">
+        <h1>GadgetGateway</h1>
+
+        <div>
+            {% if user.is_authenticated %}
+                <h4>Welcome, {{ user.username }}!</h4>
+            {% else %}
+                <h4>Welcome to GG!</h4>
+            {% endif %}
+            <br />
+        </div>
     </div>
 </div>
 <div class="container">
     <div class="card-group">
-        <div class="card">
-            <div class="card-body">
-                <h2>Most Satisfied Products</h2>
-                {% if most_liked %}
-                    <ul>
-                        {% for item in most_liked %}
-                            <li>
-                                {{ item.name }} (Satisfied: {{ item.get_satisfactory_rate }})
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <strong>There are no most liked products (sniff sniff)</strong> 
-                {% endif %}
-            </div>
-        </div>
+      
         <div class="card">
         <div class="card-body">
-            <h2>Most Viewed Products</h2>
+            <div class="header">
+                <h2>Most Viewed Products</h2>
+            </div>
             {% if most_viewed %}
                 <ul>
                     {% for item in most_viewed %}
-                        <li>
-                            {{ item.name }} (Views: {{ item.views }})
-                        </li>
+                        <table>                               
+                            <tr>
+                                <td> 🔥 <a href="{%  url 'gadgetgateway:view_product' item.category.slug item.slug %}">{{ item }}</a></td>
+                                <td> {{ item.views }} views</td>
+                            </tr>
+                        </table> 
                     {% endfor %}
                 </ul>
             {% else %}
@@ -111,5 +105,26 @@
             {% endif %} 
         </div>
     </div>
-</div>
+      <div class="card">
+            <div class="card-body">
+                <div class="header">
+                    <h2>Most Satisfied Products</h2>
+                </div>
+                {% if most_liked %}
+                    <ul>
+                        {% for item in most_liked %}
+                            <table>                               
+                                <tr>
+                                    <td> 💙 <a href="{%  url 'gadgetgateway:view_product' item.category.slug item.slug %}">{{ item }}</a></td>
+                                    <td> 🙋‍♂️ {{ item.get_satisfactory_rate }} 🙆‍♀️</td>
+                                </tr>
+                            </table> 
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no most liked products (sniff sniff)</strong> 
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,0 +1,77 @@
+
+
+body {
+    background-color: #363c41;
+}
+
+table {
+    table-layout: auto;
+    width: 450px; 
+    margin: 5px 0;
+    font-size: 18px;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    color: #363c41;
+    text-align: left;
+    border-radius:4px;
+    -moz-border-radius:4px;
+    text-indent: 5px;
+}
+
+thead tr th:first-child,
+tbody tr td:first-child {
+    width: 8em;
+    min-width: 18em;
+    max-width: 18em;
+    word-break: break-all;
+    padding: 2px 2px;
+    text-indent: 14px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+/* Link inside the table*/
+table a {
+  color: #3f89bd;
+}
+
+table a:hover {
+  color: #007ff4;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.16);
+}
+
+.header {
+  padding: 1px;
+  text-align: center;
+  /*background: #1abc9c;*/
+  color: #363c41;
+  font-size: 18px;
+}
+.card {
+  background: #dddddd;
+}
+.card-group {
+  background: #363c41;
+}
+.jumbotron{ 
+  color: #363c41;
+  padding: 6px;
+  background: #dddddd;
+}
+/*buttons*/
+.btn-xl {
+        padding: 1rem 2rem
+    }
+.btn-primary{
+    background-color: #3f89bd;
+    border-color: #3f89bd;
+}
+.btn-primary:hover {
+    background-color: #007ff4;
+    border-color: #007ff4;
+    color: #fff;
+}
+
+
