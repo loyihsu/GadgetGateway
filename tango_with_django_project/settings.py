@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 ]
-
-SITE_ID = 2
+#set SITE_ID to 3 if SocialApp Error appear
+SITE_ID = 2 
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
