@@ -58,9 +58,6 @@
                     </form>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class ="authlogindis">
-                    <p>Welcome, {{ user.username }}!</p>
-                    </li>
                     <a type="button" class="btn btn-primary navbar-btn" href="{% url 'gadgetgateway:logout' %}">Logout</a>
                     {% else %}
                     <div class="btn-group">
