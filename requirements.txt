@@ -10,5 +10,5 @@ requests==2.31.0
 cryptography==41.0.4
 oauthlib==3.2.2
 idna==3.2
-urllib3==1.26.6
+urllib3==1.26.17
 charset-normalizer==2.0.4
