@@ -5,7 +5,7 @@
 Startup script (Run it in Terminal!):
 
 ```sh
-conda create -n gadgetgateway python=3.7.5
+conda create -n gadgetgateway python=3.9.18
 conda activate gadgetgateway
 pip install -r requirements.txt
 python manage.py makemigrations gadgetgateway
